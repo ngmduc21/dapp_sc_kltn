@@ -6,12 +6,13 @@ module.exports = function(app) {
     });
 
     app.post("/register", function(req, res){
-        if(!req.body.email || !req.body.name || !req.body.phone) {
+        if(!req.body.email || !req.body.fullName || !req.body.employeeID) {
             res.json({result:0, message: "Not enough information required!"});
         } else {
             var newEmployee = new employee({
                 email: req.body.email,
-                name: req.body.name,
+                fullName: req.body.fullName,
+                employeeID: req.body.employeeID,
                 phone: req.body.phone,
                 isPaid: false, 
                 walletAddress: '',
