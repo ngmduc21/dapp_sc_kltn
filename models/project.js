@@ -5,6 +5,7 @@ const projectSchema = new mongoose.Schema({
     client: String,
     members: String,
     budget: String,
+    listMembers: Array,
 })
 
 module.exports = mongoose.model('project', projectSchema)
