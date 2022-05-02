@@ -1,24 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/head'); %>
     <title>Danh sách nhân viên</title>
-    <style>
-        #tbList{width: 90%}
-        #rowLabel td, .row{text-align: center; padding: 4px; border-bottom: solid 1px cornflowerblue;}
-    </style>
 </head>
 <body>
-    <h2> Danh sách nhân viên</h2>
-    <div id="list">
-        <table id="tbList">
-            <tr id="rowLabel">
-                <td>Họ Tên</td>
-                <td>ID</td>
-            </tr>
-        </table>
-    </div>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <h1> Danh sách nhân viên</h1>
+        <div>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Họ tên</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Số điện thoại</th>
+                        <th scope="col">Địa chỉ ví</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(data.length){
+                
+                        for(var i = 0; i< data.length; i++) {%>  
+                        <tr>
+                            <th scope="row"><%= (i+1) %></th>
+                            <td><%= data[i].name%></td>
+                            <td><%= data[i].email%></td>
+                            <td><%= data[i].phone%></td>
+                            <td><%= data[i].walletAddress%></td>
+                            <td>
+                                <a href="/users/<%= data[i]._id%>" > 
+                                    <button class="btn btn-primary">Chi tiết</button>
+                                </a>
+                            </td>
+                        </tr>
+                        <% }
+                                
+                        }else{ %>
+                            <tr>
+                                <td colspan="3">No project</td>
+                            </tr>
+                            <% } %> 
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 </body>
 </html>

@@ -2,35 +2,60 @@
 <html lang="en">
 <head>
     <base href="http://localhost:3000" />
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/head'); %>
     <title>Thêm nhân viên</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./scripts/web3.js"></script>
     <script src="./process.js"></script>
     <style>
         #frmRegister, #list {background-color: antiquewhite; padding: 10px; margin-bottom: 10px;}
         #tbList{width: 90%}
         #rowLabel td, .row{text-align: center; padding: 4px; border-bottom: solid 1px cornflowerblue;}
+        #frmCreate {margin: 20px;}
     </style>
 </head>
 <body>
-    <h2>Register</h2> 
-    <button id="btnConnectMM">Connect to MetaMask Wallet</button>
-    <div id="frmRegister">
-        <input id="txtEmail" type="text" placeholder="Email" />
-        <input id="txtName" type="text" placeholder="Name" />
-        <input id="txtPhone" type="text" placeholder="Phone" />
-        <button id="btnRegister"> Register </button>
-    </div>
-    <div id="list">
-        <table id="tbList">
-            <tr id="rowLabel">
-                <td>Address</td>
-                <td>ID</td>
-            </tr>
-        </table>
-    </div>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div>
+            <h2>Register</h2> 
+            <button id="btnConnectMM">Connect to MetaMask Wallet</button>
+            <div id="frmRegister">
+                <input id="txtEmail" type="text" placeholder="Email" />
+                <input id="txtName" type="text" placeholder="Name" />
+                <input id="txtPhone" type="text" placeholder="Phone" />
+                <button id="btnRegister"> Register </button>
+            </div>
+            <div id="frmCreate">
+                <form>
+                    <div class="mb-3">
+                      <label for="inputEmail" class="form-label">Email address</label>
+                      <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp">
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="inputPwd" class="form-label">Password</label>
+                      <input type="password" id="inputPwd" class="form-control" aria-describedby="passwordHelpBlock">
+                      <div id="passwordHelpBlock" class="form-text">
+                      Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+            </div>
+            <div id="list">
+                <table id="tbList">
+                    <tr id="rowLabel">
+                        <td>Address</td>
+                        <td>ID</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 </body>
 </html>

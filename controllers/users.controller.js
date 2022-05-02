@@ -1,11 +1,34 @@
-var employee = require("../models/employee");
+var employeeModel = require("../models/employee");
 
 module.exports.index = (req, res) => {
     res.render("users/index");
 }
 
 module.exports.list = (req, res) => {
-    res.render('users/list');
+    employeeModel.find((error, employee) => {
+        if(!error){
+            res.render('users/list', {
+                data: employee
+            })
+        }else{
+            console.log('Users list: Unable to fetch data!')
+        }
+    })
+}
+
+module.exports.getDetail = (req, res) => {
+    var id = req.params.id
+    console.log('Get detail of project:',id)
+    employeeModel.findOne({_id: id}, (error, employee) => {
+        if (!error){
+            res.render('users/detail', {
+                data: employee
+            })
+        }
+        else {
+            console.log('Users id: Unable to get users data!')
+        }
+    })
 }
 
 module.exports.create =(req, res) => {
@@ -16,9 +39,9 @@ module.exports.postCreate = (req, res) => {
     if(!req.body.email || !req.body.fullName || !req.body.employeeID) {
         res.json({result:0, message: "Not enough information required!"});
     } else {
-        var newEmployee = new employee({
+        var newEmployee = new employeeModel({
             email: req.body.email,
-            fullName: req.body.fullName,
+            name: req.body.fullName,
             employeeID: req.body.employeeID,
             phone: req.body.phone,
             isPaid: false, 
