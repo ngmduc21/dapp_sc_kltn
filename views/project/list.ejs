@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <title>Danh sách dự án</title>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div>
+            <h1> Danh sách dự án</h1>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên dự án</th>
+                        <th scope="col">Khách hàng</th>
+                        <th scope="col">Số thành viên</th>
+                        <th scope="col">Ngân sách</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% if(data.length){
+                
+                for(var i = 0; i< data.length; i++) {%>  
+                <tr>
+                    <th scope="row"><%= (i+1) %></th>
+                    <td><%= data[i].name%></td>
+                    <td><%= data[i].client%></td>
+                    <td><%= data[i].members%></td>
+                    <td><%= data[i].budget%></td>
+                    <td>
+                        <a href="/project/<%= data[i]._id%>" > 
+                            <button class="btn btn-primary">Chi tiết</button>
+                        </a>
+                    </td>
+                </tr>
+                <% }
+                        
+                }else{ %>
+                    <tr>
+                        <td colspan="3">No project</td>
+                    </tr>
+                    <% } %>    
+                
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+</html>

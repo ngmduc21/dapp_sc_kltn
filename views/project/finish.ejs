@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <title>Hoàn thành dự án</title>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div>
+            <h1> Hoàn thành dự án </h1> 
+            <table class="table">
+                <tr>
+                    <th scope="col"> Tên dự án </th>
+                    <td scope="row"><%= data.name%></td>
+                </tr>
+                <tr>
+                    <th scope="col"> Khách hàng </th>
+                    <td scope="row"><%= data.client%></td>
+                </tr>
+                <tr>
+                    <th scope="col"> Thành viên </th>
+                    <td scope="row"><%= data.listMembers%></td>
+                </tr>
+                <tr>
+                    <th scope="col"> Ngân sách </th>
+                    <td scope="row"><%= data.budget%> PMC</td>
+                </tr>
+            </table>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+    
+</body>
+</html>

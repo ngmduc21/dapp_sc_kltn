@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <title>Chi tiết dự án</title>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div>
+            <h1> Chi tiết dự án </h1>
+            <h3> Tên dự án</h3>
+            <p><%= data.name %></p>
+            <h3> Khách hàng</h3>
+            <p><%= data.client %></p>
+            <h3> Số thành viên</h3>
+            <p><%= data.name %></p>
+            <h3> Ngân sách</h3>
+            <p><%= data.budget %></p>
+            <a href="/project/finish/<%= data._id%>">
+                <button type="button" class="btn btn-primary">
+                    Hoàn thành
+                </button>
+            </a>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+</html>
