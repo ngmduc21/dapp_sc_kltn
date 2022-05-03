@@ -12,7 +12,6 @@ app.set("views", "./views");
 
 app.use(express.static('stuff'));
 
-
 app.use('/project', projectRoute);
 
 app.get('/project', function(req, res){
