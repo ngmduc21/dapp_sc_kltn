@@ -1,3 +1,4 @@
+const res = require("express/lib/response");
 var mongoose = require("mongoose");
 var projectModel = require('../models/project')
 
@@ -47,6 +48,11 @@ module.exports.finish = (req, res) => {
             console.log('Project id: Unable to get project data!')
         }
     })
+}
+
+module.exports.postcreate =(req, res) => {
+    console.log(req.body);
+    res.render('project/create', {data: req.query});
 }
 
 module.exports.create =(req, res) => {

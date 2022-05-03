@@ -34,7 +34,7 @@ app.use(bodyParse.urlencoded({extended:false}));
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-// Màn hình render khi try cập vào app
+// Màn hình render khi truy cập vào app
 app.get('/', (req, res) => {
     res.render('index')
 })

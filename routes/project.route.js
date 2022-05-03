@@ -13,4 +13,6 @@ router.get('/:id', controller.getDetail)
 
 router.get('/finish/:id', controller.finish)
 
+router.post('/create', controller.postcreate)
+
 module.exports = router
