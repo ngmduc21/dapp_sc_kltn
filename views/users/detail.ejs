@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <title>Chi tiết nhân viên</title>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <div>
+            <h1> Chi tiết nhân viên </h1>
+            <h3> Họ tên</h3>
+            <p><%= data.name %></p>
+            <h3> Email</h3>
+            <p><%= data.email %></p>
+            <h3> Số điện thoại</h3>
+            <p><%= data.phone %></p>
+            <h3> Địa chỉ ví</h3>
+            <p><%= data.walletAddress %></p>
+            <a href="">
+                <button type="button" class="btn btn-primary">
+                    Chỉnh sửa
+                </button>
+            </a>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+</html>
