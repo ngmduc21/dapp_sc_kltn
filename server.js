@@ -34,7 +34,7 @@ app.use(bodyParse.urlencoded({extended:false}));
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-// Màn hình render khi try cập vào app
+// Màn hình render khi truy cập vào app
 app.get('/', (req, res) => {
     res.render('index')
 })
@@ -45,6 +45,7 @@ app.use('/users', userRoute);
 app.use('/project', projectRoute);
 
 // Server listen trên port
-app.listen(3000, function(){
-    console.log("Server listening on port 3000")
+var port = 3000
+app.listen(port, function(){
+    console.log("Server listening on port", port)
 });
