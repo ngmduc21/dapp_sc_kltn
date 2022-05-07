@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <title>Chi tiết dự án</title>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <form action="" id="add-project-form" method="post">
+            <label for="name">Nhập tên dự án</label><br>
+            <input type="text" name="name" placeholder="Tên dự án"><br>
+            <label for="client">Nhập tên khách hàng</label><br>
+            <input type="text" name="client" placeholder="Tên khách hàng"><br>
+            <label for="leader">Nhập tên leader</label><br>
+            <input type="text" name="leader" placeholder="Tên leader"><br>
+            <label for="budget">Nhập số tiền budget</label><br>
+            <input type="text" name="budget" placeholder="Số tiền budget"><br>
+            <input type="submit" value="Xác nhận"><br>
+        </form>
+    </main>
+</body>
+</html>
