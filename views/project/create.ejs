@@ -9,17 +9,27 @@
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <form action="" id="add-project-form" method="post">
-            <label for="name">Nhập tên dự án</label><br>
-            <input type="text" name="name" placeholder="Tên dự án"><br>
-            <label for="client">Nhập tên khách hàng</label><br>
-            <input type="text" name="client" placeholder="Tên khách hàng"><br>
-            <label for="leader">Nhập tên leader</label><br>
-            <input type="text" name="leader" placeholder="Tên leader"><br>
-            <label for="budget">Nhập số tiền budget</label><br>
-            <input type="text" name="budget" placeholder="Số tiền budget"><br>
-            <input type="submit" value="Xác nhận"><br>
-        </form>
+        <div id="project-create-form">
+            <form action="" method="post">
+                <label for="name">Nhập tên dự án</label><br>
+                <input type="text" name="name" value="" placeholder="Tên dự án"><br>
+                <label for="client">Nhập tên khách hàng</label><br>
+                <input type="text" name="client" value="" placeholder="Tên khách hàng"><br>
+                <label for="leader">Nhập tên leader</label><br>
+                <input type="text" name="leader" value="" placeholder="Tên leader"><br>
+                <label for="leader">Số thành viên</label><br>
+                <input type="text" name="numberOfMembers" value="" placeholder="Số thành viên"><br>
+                <label for="budget">Nhập số tiền budget</label><br>
+                <input type="text" name="budget" value="" placeholder="Số tiền budget"><br>
+                <label for="budget">Thành viên 1</label><br>
+                <input type="text" name="member1" value="" placeholder="Thành viên 1"><br>
+                <label for="budget">Thành viên 2</label><br>
+                <input type="text" name="member2" value="" placeholder="Thành viên 2"><br>
+                <label for="budget">Thành viên 3</label><br>
+                <input type="text" name="member3" value="" placeholder="Thành viên 3"><br>
+                <input type="submit" value="Xác nhận"><br>
+            </form>
+        </div>
     </main>
 </body>
 </html>

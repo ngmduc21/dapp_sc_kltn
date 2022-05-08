@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="http://localhost:3000" />
     <%- include('../partials/head'); %>
     <title>Hoàn thành dự án</title>
+    <script src="./scripts/web3.js"></script>
+    <script src="./finishProject.js"></script>
 </head>
 <body>
     <header>
@@ -11,24 +14,35 @@
     <main>
         <div>
             <h1> Hoàn thành dự án </h1> 
-            <table class="table">
-                <tr>
-                    <th scope="col"> Tên dự án </th>
-                    <td scope="row"><%= data.name%></td>
-                </tr>
-                <tr>
-                    <th scope="col"> Khách hàng </th>
-                    <td scope="row"><%= data.client%></td>
-                </tr>
-                <tr>
-                    <th scope="col"> Thành viên </th>
-                    <td scope="row"><%= data.listMembers%></td>
-                </tr>
-                <tr>
-                    <th scope="col"> Ngân sách </th>
-                    <td scope="row"><%= data.budget%> PMC</td>
-                </tr>
-            </table>
+            <div>
+                <button type="button" id="btnConnectMM" class="btn btn-primary"> Kết nối với Ví MetaMask </button>
+            </div>
+            <div id="finish-project-form">
+                <table class="table">
+                    <tr>
+                        <th scope="col"> Tên dự án </th>
+                        <td id ="name" scope="row"><%= data.name%></td>
+                    </tr>
+                    <tr>
+                        <th scope="col"> Khách hàng </th>
+                        <td id ="client" scope="row"><%= data.client%></td>
+                    </tr>
+                    <tr>
+                        <th scope="col"> Thành viên </th>
+                        <td scope="row"><%= data.listMembers%></td>
+                    </tr>
+                    <tr>
+                        <th scope="col"> Ngân sách </th>
+                        <td id ="budget" scope="row"><%= data.budget%> PMC</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div>
+                <button type="button" class="btn btn-primary" id="btnFinishProject">
+                    Kết thúc và trả thưởng
+                </button>
+            </div>
         </div>
     </main>
     <footer>

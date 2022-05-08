@@ -1,4 +1,4 @@
-var employee = require("../models/employee");
+var employee = require("../models/employee.model");
 
 module.exports = function(app) {
     app.get("/", function(req, res) {
@@ -7,7 +7,7 @@ module.exports = function(app) {
 
     app.post("/register", function(req, res){
         if(!req.body.email || !req.body.fullName) {
-            res.json({result:0, message: "Not enough information required!"});
+            res.json({result:0, message: "Not enough required information required!"});
         } else {
             var newEmployee = new employee({
                 email: req.body.email,

@@ -10,15 +10,38 @@
     </header>
     <main>
         <div>
-            <h1> Chi tiết dự án </h1>
-            <h3> Tên dự án</h3>
-            <p><%= data.name %></p>
-            <h3> Khách hàng</h3>
-            <p><%= data.client %></p>
-            <h3> Số thành viên</h3>
-            <p><%= data.name %></p>
-            <h3> Ngân sách</h3>
-            <p><%= data.budget %></p>
+            <h1> Hoàn thành dự án </h1> 
+            <table class="table">
+                <tr>
+                    <th scope="col"> Tên dự án </th>
+                    <td scope="row"><%= data.name%></td>
+                </tr>
+                <tr>
+                    <th scope="col"> Khách hàng </th>
+                    <td scope="row"><%= data.client%></td>
+                </tr>
+                <tr>
+                    <th scope="col"> Thành viên </th>
+                    <% if(data.listMembers.length){
+                
+                        for(var i = 0; i< data.listMembers.length; i++) {%>
+                            <tr>
+                                <td scope="row"> Thành viên thứ <%= (i+1) %> </th>
+                                <td scope="row"><%= data.listMembers[i]%></td>
+                            </tr>
+                    <% }
+                
+                    }else{ %>
+                        <tr>
+                            <td colspan="3">Chưa có thành viên</td>
+                        </tr>
+                        <% } %>
+                </tr>
+                <tr>
+                    <th scope="col"> Ngân sách </th>
+                    <td scope="row"><%= data.budget%> PMC</td>
+                </tr>
+            </table>
             <a href="/project/finish/<%= data._id%>">
                 <button type="button" class="btn btn-primary">
                     Hoàn thành

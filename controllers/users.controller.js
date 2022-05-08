@@ -1,4 +1,4 @@
-var employeeModel = require("../models/employee");
+var employeeModel = require("../models/employee.model");
 
 module.exports.index = (req, res) => {
     res.render("users/index");
