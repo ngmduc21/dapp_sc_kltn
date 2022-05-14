@@ -9,6 +9,7 @@ module.exports.index = (req, res) => {
     res.render('project/index')
 }
 
+// Listing project
 module.exports.list = (req, res) => {
     projectModel.find((error, project) => {
         if (!error){
@@ -22,6 +23,7 @@ module.exports.list = (req, res) => {
     })
 }
 
+// Get details of each project
 module.exports.getDetail = (req, res) => {
     var id = req.params.id
     console.log('Get detail of project:',id)
@@ -37,6 +39,7 @@ module.exports.getDetail = (req, res) => {
     })
 }
 
+// Finish a project
 module.exports.finish = (req, res) => {
     var id = req.params.id
     finishedProjectID = id
@@ -53,6 +56,7 @@ module.exports.finish = (req, res) => {
     })
 }
 
+// Process create project
 module.exports.postcreate =(req, res) => {
     if(!req.body.name || !req.body.client || !req.body.budget) {
         console.log("Not enough required information!")
@@ -80,6 +84,7 @@ module.exports.postcreate =(req, res) => {
     res.redirect("/project")
 }
 
+// Process finish project
 module.exports.postFinish = (req, res) => {
     id = finishedProjectID
     console.log('Get detail of project:',id)
