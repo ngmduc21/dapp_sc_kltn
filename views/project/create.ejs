@@ -1,68 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <%- include('../partials/head'); %>
+  <%- include('../partials/head'); %>
     <title>Chi tiết dự án</title>
 </head>
+
 <body>
-    <header>
-        <%- include('../partials/header'); %>
-    </header>
-    <main>
-        <div id="project-create-form">
-            <form action="" method="post">
-                <label for="name">Nhập tên dự án</label><br>
-                <input type="text" name="name" value="" placeholder="Tên dự án"><br>
-                <label for="client">Nhập tên khách hàng</label><br>
-                <input type="text" name="client" value="" placeholder="Tên khách hàng"><br>
-                <label for="leader">Nhập tên leader</label><br>
-                <input type="text" name="leader" value="" placeholder="Tên leader"><br>
-                <label for="leader">Số thành viên</label><br>
-                <input type="text" name="numberOfMembers" value="" placeholder="Số thành viên"><br>
-                <label for="budget">Nhập số tiền budget</label><br>
-                <input type="text" name="budget" value="" placeholder="Số tiền budget"><br>
-                <tr>
-                    <td class="tdLabel"><label for="mem" class="label">Thành viên 1:</label></td>
-                    <td>
-                      <select name="member1" style="width:160px">
-                        <option value="Name 1">name 1</option>
-                        <option value="Name 2">name 2</option>
-                        <option value="Name 3">name 3</option>
-                        <option value="Name 4">name 4</option>
-                        <option value="Name 5">name 5</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <br>
-                  <tr>
-                    <td class="tdLabel"><label for="mem" class="label">Thành viên 2:</label></td>
-                    <td>
-                      <select name="member2" style="width:160px">
-                        <option value="Name 1">name 1</option>
-                        <option value="Name 2">name 2</option>
-                        <option value="Name 3">name 3</option>
-                        <option value="Name 4">name 4</option>
-                        <option value="Name 5">name 5</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <br>
-                  <tr>
-                    <td class="tdLabel"><label for="mem" class="label">Thành viên 3:</label></td>
-                    <td>
-                      <select name="member3" style="width:160px">
-                        <option value="Name 1">name 1</option>
-                        <option value="Name 2">name 2</option>
-                        <option value="Name 3">name 3</option>
-                        <option value="Name 4">name 4</option>
-                        <option value="Name 5">name 5</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <br>
-                <input type="submit" value="Xác nhận"><br>
-            </form>
-        </div>
-    </main>
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+  <main>
+    <div id="project-create-form">
+      <form action="" method="post">
+        <label for="name">Nhập tên dự án</label><br>
+        <input type="text" name="name" value="" placeholder="Tên dự án"><br>
+        <label for="client">Nhập tên khách hàng</label><br>
+        <input type="text" name="client" value="" placeholder="Tên khách hàng"><br>
+        <label for="leader">Nhập tên leader</label><br>
+        <input type="text" name="leader" value="" placeholder="Tên leader"><br>
+        <label for="leader">Số thành viên</label><br>
+        <input type="text" name="numberOfMembers" value="" placeholder="Số thành viên"><br>
+        <label for="budget">Nhập số tiền budget</label><br>
+        <input type="text" name="budget" value="" placeholder="Số tiền budget"><br>
+        <tr>
+          <td class="tdLabel"><label for="mem" class="label">Thành viên 1:</label></td>
+          <td>
+            <select name="member1" style="width:160px">
+              <% if(data.length){ for(var i=0; i< data.length; i++) {%>
+                <option>
+                  <%= data[i].name%>
+                </option>
+                <% }} %>
+            </select>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td class="tdLabel"><label for="mem" class="label">Thành viên 2:</label></td>
+          <td>
+            <select name="member2" style="width:160px">
+              <% if(data.length){ for(var i=0; i< data.length; i++) {%>
+                <option>
+                  <%= data[i].name%>
+                </option>
+                <% }} %>
+            </select>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td class="tdLabel"><label for="mem" class="label">Thành viên 3:</label></td>
+          <td>
+            <select name="member3" style="width:160px">
+              <% if(data.length){ for(var i=0; i< data.length; i++) {%>
+                <option>
+                  <%= data[i].name%>
+                </option>
+                <% }} %>
+            </select>
+          </td>
+        </tr>
+        <br>
+        <input type="submit" value="Xác nhận"><br>
+      </form>
+    </div>
+  </main>
 </body>
 </html>

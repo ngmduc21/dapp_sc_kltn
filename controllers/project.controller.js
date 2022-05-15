@@ -2,11 +2,24 @@ const res = require("express/lib/response");
 
 var projectModel = require('../models/project.model')
 var finishedProjectModel = require('../models/finishedProject.model')
+var employeeModel = require("../models/employee.model");
 
 var finishedProjectID = ""
 
 module.exports.index = (req, res) => {
     res.render('project/index')
+}
+
+module.exports.create = (req, res) => {
+    employeeModel.find((error, employee) => {
+        if(!error){
+            res.render('project/create', {
+                data: employee
+            })
+        }else{
+            console.log('Users list: Unable to fetch data!')
+        }
+    })
 }
 
 // Listing project
@@ -126,6 +139,6 @@ module.exports.postFinish = (req, res) => {
     res.redirect("/project")
 } 
 
-module.exports.create =(req, res) => {
-    res.render("project/create");
-}
+//module.exports.create =(req, res) => {
+//    res.render("project/create");
+//}
