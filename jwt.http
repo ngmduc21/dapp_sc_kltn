@@ -1,0 +1,24 @@
+GET http://localhost:3000/
+###
+GET http://localhost:3000/
+Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJoZW5yeSIsImlhdCI6MTY1MjYwMTEzMywiZXhwIjoxNjUyNjAxMTkzfQ.4T0FxoDzW0NCrwafogllA6-eM9w30tgr_f6V1mrtg3E
+###
+POST http://localhost:3000/login
+Content-Type: application/json 
+
+{
+    "username": "henry"
+}
+
+###
+// yeu cau token moi
+POST http://localhost:3000/token
+Content-Type: application/json
+
+{
+    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJoZW5yeSIsImlhdCI6MTY1MjU5OTQ0OSwiZXhwIjoxNjUyNjAzMDQ5fQ.-H-SZwE0wsbpaaJPEKMAoG7_cMzX4_b8ZaBK8FsohNQ"
+}
+
+###
+DELETE http://localhost:3000/logout
+Authorization: Baerer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJoZW5yeSIsImlhdCI6MTY1MjYwMDM4NywiZXhwIjoxNjUyNjAwNDQ3fQ.2Ielsgohp1TQoyD7oNEgsULuc_HqbsFt-yPKCiJOIvQ
