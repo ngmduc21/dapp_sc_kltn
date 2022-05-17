@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "appserver": "nodemon server",
+    "authserver": "nodemon authServer",
+    "start": "concurrently \"npm:appserver\" \"npm:authserver\""
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "body-parser": "^1.19.2",
+    "concurrently": "^7.2.0",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
