@@ -12,7 +12,7 @@
     </header>
     <main>
         <div>
-            <h1> Hoàn thành dự án </h1> 
+            <h1> Chi tiết dự án </h1> 
             <table class="table">
                 <tr>
                     <th scope="col"> ID </th>
@@ -48,6 +48,9 @@
                     <td scope="row"><%= data.budget%> PMC</td>
                 </tr>
             </table>
+            <a href="/task">
+                <button type="button" class="btn btn-primary"> Quản lý công việc </button>
+            </a>
             <a href="/project/finish/<%= data._id%>">
                 <button type="button" class="btn btn-primary">
                     Hoàn thành

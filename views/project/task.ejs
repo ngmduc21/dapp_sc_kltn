@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+    <title>Quản lý công việc</title>
+</head>
+
+<body>
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+  input number 1 <input type="text" id="n1">
+  <br>
+  input number 2 <input type="text" id="n2">
+  <br>
+  Result <input type="text" id="result">
+  <button onclick="calc()">Submit</button>
+  <script type="text/javascript">
+      function calc(){
+        var n1 = document.getElementById('n1').value;
+        var n2 = document.getElementById('n2').value;
+        var result=0;
+        result = parseInt(n1) + parseInt(n2);
+        document.getElementById('result').value = result;
+      }
+  </script>

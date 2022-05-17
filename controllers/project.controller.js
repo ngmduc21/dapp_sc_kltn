@@ -3,6 +3,7 @@ const res = require("express/lib/response");
 var employeeModel = require("../models/employee.model");
 var projectModel = require('../models/project.model')
 var finishedProjectModel = require('../models/finishedProject.model')
+var employeeModel = require("../models/employee.model");
 
 var finishedProjectID = ""
 
@@ -10,6 +11,19 @@ module.exports.index = (req, res) => {
     res.render('project/index')
 }
 
+module.exports.create = (req, res) => {
+    employeeModel.find((error, employee) => {
+        if(!error){
+            res.render('project/create', {
+                data: employee
+            })
+        }else{
+            console.log('Users list: Unable to fetch data!')
+        }
+    })
+}
+
+// Listing project
 module.exports.list = (req, res) => {
     projectModel.find((error, project) => {
         if (!error){
@@ -23,6 +37,7 @@ module.exports.list = (req, res) => {
     })
 }
 
+// Get details of each project
 module.exports.getDetail = (req, res) => {
     var id = req.params.id
     console.log('Get detail of project:',id)
@@ -38,6 +53,7 @@ module.exports.getDetail = (req, res) => {
     })
 }
 
+// Finish a project
 module.exports.finish = (req, res) => {
     var id = req.params.id
     finishedProjectID = id
@@ -54,6 +70,7 @@ module.exports.finish = (req, res) => {
     })
 }
 
+// Process create project
 module.exports.postcreate =(req, res) => {
     if(!req.body.name || !req.body.client || !req.body.budget) {
         console.log("Not enough required information!")
@@ -81,6 +98,7 @@ module.exports.postcreate =(req, res) => {
     res.redirect("/project")
 }
 
+// Process finish project
 module.exports.postFinish = (req, res) => {
     console.log(req.body)
     if(!req.body.name || !req.body.client || !req.body.budget) {
