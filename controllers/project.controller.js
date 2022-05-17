@@ -74,7 +74,7 @@ module.exports.finish = (req, res) => {
 module.exports.postcreate =(req, res) => {
     if(!req.body.name || !req.body.client || !req.body.budget) {
         console.log("Not enough required information!")
-        //res.json({result: 0, message: "Not enough required information!"})
+        res.json({result: 0, message: "Not enough required information!"})
     } else {
         var newProject = new projectModel({
             name: req.body.name,
@@ -82,20 +82,19 @@ module.exports.postcreate =(req, res) => {
             leader: req.body.leader,
             numberOfMembers: req.body.numberOfMembers,
             budget: req.body.budget,
-            listMembers: [req.body.member1, req.body.member2, req.body.member3]
+            listMembers: [req.body.leader]
         })
 
         newProject.save(function(error){
             if(error){
                 console.log(error)
-                //res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
+                res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
             }else {
-                console.log(newProject)
-                //res.json({result:1, message: newProject});
+                console.log("Đã tạo thành công dự án mới!")
+                res.json({result:1, message: newProject});
             }
         })
     }
-    res.redirect("/project")
 }
 
 // Process finish project

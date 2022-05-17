@@ -5,12 +5,9 @@
     <%- include('../partials/head'); %>
     <title>Thêm nhân viên</title>
     <script src="./scripts/web3.js"></script>
-    <script src="./process.js"></script>
+    <script src="./employeeCreate.js"></script>
     <style>
-        #frmRegister, #list {background-color: antiquewhite; padding: 10px; margin-bottom: 10px;}
-        #tbList{width: 90%}
-        #rowLabel td, .row{text-align: center; padding: 4px; border-bottom: solid 1px cornflowerblue;}
-        #frmCreate {margin: 20px;}
+         #employee-create-form {margin: 20px;}
     </style>
 </head>
 <body>
@@ -18,41 +15,40 @@
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <div>
-            <h2>Register</h2> 
-            <button id="btnConnectMM">Connect to MetaMask Wallet</button>
-            <div id="frmRegister">
-                <input id="txtEmail" type="text" placeholder="Email" />
-                <input id="txtName" type="text" placeholder="Name" />
-                <input id="txtPhone" type="text" placeholder="Phone" />
-                <button id="btnRegister"> Register </button>
+        <h1>Tạo nhân viên mới</h1>
+    <div id="employee-create-form">
+      <form>
+          <div class="mb-3">
+            <label for="inputName" class="form-label">Tên nhân viên</label>
+            <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
+            <div id="nameHelp" class="form-text">Nhập họ tên cho nhân viên mới</div>
+          </div>
+          <div class="mb-3">
+            <label for="inputEmail" class="form-label">Email</label>
+            <input type="text" id="inputEmail" class="form-control" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">
+            Tạo email mới cho nhân viên
             </div>
-            <div id="frmCreate">
-                <form>
-                    <div class="mb-3">
-                      <label for="inputEmail" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp">
-                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="inputPwd" class="form-label">Password</label>
-                      <input type="password" id="inputPwd" class="form-control" aria-describedby="passwordHelpBlock">
-                      <div id="passwordHelpBlock" class="form-text">
-                      Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </form>
+          </div>
+          
+            <div class="mb-3">
+              <label for="inputPhone" class="form-label">Số điện thoại</label>
+              <input type="text" id="inputPhone" class="form-control" aria-describedby="phoneHelp">
+              <div id="phoneHelp" class="form-text">
+              Nhập số điện thoại của nhân viên
+              </div>
             </div>
-            <div id="list">
-                <table id="tbList">
-                    <tr id="rowLabel">
-                        <td>Address</td>
-                        <td>ID</td>
-                    </tr>
-                </table>
+            <div class="mb-3">
+              <label for="inputWallet" class="form-label">Địa chỉ ví</label>
+              <input type="text" id="inputWallet" class="form-control" aria-describedby="walletHelp">
+              <div id="memberHelp" class="form-text">
+              Cung cấp địa chỉ ví của nhân viên 
+              </div>
             </div>
-        </div>
+          </div>
+          <button id="btnSubmit" type="submit" class="btn btn-primary">Xác nhận</button>
+        </form>
+  </div>
     </main>
     <footer>
         <%- include('../partials/footer'); %>

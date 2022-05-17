@@ -36,16 +36,16 @@ module.exports.create =(req, res) => {
 }
 
 module.exports.postCreate = (req, res) => {
-    if(!req.body.email || !req.body.fullName || !req.body.employeeID) {
+    if(!req.body.email || !req.body.name || !req.body.wallet) {
         res.json({result:0, message: "Not enough information required!"});
     } else {
         var newEmployee = new employeeModel({
             email: req.body.email,
-            name: req.body.fullName,
-            employeeID: req.body.employeeID,
+            name: req.body.name,
+            employeeID: '',
             phone: req.body.phone,
-            isPaid: false, 
-            walletAddress: '',
+            assigned: [],
+            walletAddress: req.body.wallet,
             date: Date.now(),
         });
 

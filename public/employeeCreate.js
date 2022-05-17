@@ -116,25 +116,43 @@ $(document).ready(function(){
             console.log(err);
         });
     });
-    
-    $("#btnRegister").click(function(){
-        if(userAccount.length == 0){
-            alert("Please login MetaMask!");
-        }else{
-            $.post("./register", {
-                email:$("#txtEmail").val(),
-                name:$("#txtName").val(),
-                phone:$("#txtPhone").val(),
-            }, function(data){
-                console.log(data);
-                if(data.result == 1){
-                    contractMM.methods.Register(data.message._id).send({
-                        from: userAccount
-                    });
+    $("#btnSubmit").confirm({
+        title: 'Xác nhận',
+        content: 'Bạn chắc chắn muốn tạo nhân viên này ?',
+        buttons: {
+            delete: {
+                text: 'Xác nhận',
+                btnClass: 'btn-blue',
+                keys: ['enter', 'shift'],
+                action: function(){
+                    
+                        $.post("./users/create", {
+                            email:$("#inputEmail").val(),
+                            name:$("#inputName").val(),
+                            wallet:$("#inputWallet").val(),
+                            phone:$("#inputPhone").val(),
+                        }, function(data){
+                            console.log(data);
+                            if(data.result == 1){
+                                //contractMM.methods.Register(data.message._id).send({//from: userAccount})
+                                $.alert("Thao tác thành công! Chuyển hướng trong 5 giây.");
+                                setTimeout(
+                                    function() 
+                                    {
+                                        window.location = "/users/list"
+                                    }, 5000); 
+                            }else{
+                                $.alert('Thao tác thất bại')
+                            }
+                        });
+                      
                 }
-            });
+            },
+            
+            Huỷ: function () {
+                $.alert('Huỷ bỏ thao tác!');
+            },
         }
     });
-
 });
 

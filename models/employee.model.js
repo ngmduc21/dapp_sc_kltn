@@ -3,8 +3,8 @@ const employeeSchema = new mongoose.Schema({
     email: String,
     name: String,
     employeeID: String,
-    phone: String,
-    isPaid: Boolean, 
+    phone: String, 
+    assigned: Array,
     walletAddress: String,
     date: Date,
 });
