@@ -21,11 +21,11 @@
                 <table class="table">
                     <tr>
                         <th scope="col"> Tên dự án </th>
-                        <td id ="name" scope="row"><%= data.name%></td>
+                        <td  scope="row"><%= data.name%></td>
                     </tr>
                     <tr>
                         <th scope="col"> Khách hàng </th>
-                        <td id ="client" scope="row"><%= data.client%></td>
+                        <td  scope="row"><%= data.client%></td>
                     </tr>
                     <tr>
                         <th scope="col"> Thành viên </th>
@@ -33,9 +33,14 @@
                     </tr>
                     <tr>
                         <th scope="col"> Ngân sách </th>
-                        <td id ="budget" scope="row"><%= data.budget%> PMC</td>
+                        <td  scope="row"><%= data.budget%> PMC</td>
                     </tr>
                 </table>
+                <form>
+                    <input type="text" name="name" value="<%= data.name%>" placeholder="Tên dự án"><br>
+                    <input type="text" name="client" value="<%= data.client%>" placeholder="Tên dự án"><br>
+                    <input type="text" name="budget" value="<%= data.budget%>" placeholder="Tên dự án"><br>
+                </form>
             </div>
             
             <div>

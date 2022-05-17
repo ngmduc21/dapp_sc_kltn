@@ -2,13 +2,12 @@ var express = require('express')
 var router = express.Router()
 
 var controller = require('../controllers/project.controller')
-const { route } = require('./dashboard.route')
 
 router.get('/', controller.list)
 
 router.get('/list', controller.list)
 
-router.get('/create', controller.create)
+router.get('/create', controller.createList)
 
 router.get('/:id', controller.getDetail)
 
@@ -18,6 +17,6 @@ router.post('/create', controller.postcreate)
 
 router.post('/finish', controller.postFinish)
 
-//router.get('/create', controller.getListEmployee)
+router.post('/delete', controller.delete)
 
 module.exports = router
