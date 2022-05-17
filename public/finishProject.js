@@ -108,17 +108,8 @@ $(document).ready(function(){
         if(userAccount.length == 0){
             alert("Please login MetaMask!");
         }else{
-            $.post("./project/finish", {
-                name: $("#name").val(),
-                client: $("#client").val(),
-                budget: $("#budget").val(),
-            }), function(data){
-                console.log(data);
-
-                if(data.result == 1){
-                    console.log("Qua ngon")
-                }
+            $.post("./project/finish")
         }}
-    });
+    );
 })
 

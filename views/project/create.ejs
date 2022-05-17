@@ -28,6 +28,13 @@
                 <label for="budget">Thành viên 3</label><br>
                 <input type="text" name="member3" value="" placeholder="Thành viên 3"><br>
                 <input type="submit" value="Xác nhận"><br>
+                <select>
+                    <% if(data.length){
+                
+                        for(var i = 0; i< data.length; i++) {%>
+                    <option> <%= data[i].name%></option>
+                    <% }} %> 
+                </select>
             </form>
         </div>
     </main>
