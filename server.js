@@ -61,6 +61,7 @@ const posts = [
 var dashboardRoute = require('./routes/dashboard.route.js')
 var userRoute = require('./routes/users.route')
 var projectRoute = require('./routes/project.route')
+var transferRoute = require('./routes/transfer.route')
 
 // Khai báo đường dẫn thư mục public (để rút gọn mỗi khi gọi)
 app.use(express.static('public'));
@@ -100,6 +101,8 @@ app.get('/', (req, res) => {
 app.use('/users', userRoute);
 
 app.use('/project', projectRoute);
+
+app.use('/transfer', transferRoute)
 
 // Login
 app.post('/login', (req, res) => {
