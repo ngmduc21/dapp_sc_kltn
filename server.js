@@ -41,10 +41,10 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 // Màn hình render khi truy cập vào app
-app.get('/', verifyToken, (req, res) => {
-//app.get('/', (req, res) => {
+//app.get('/', verifyToken, (req, res) => {
+app.get('/', (req, res) => {
     res.render('index')
-    res.json(posts.filter(post => post.userId === req.userId))
+    //res.json(posts.filter(post => post.userId === req.userId))
 })
 
 // Khai báo các link sử dụng route nào
