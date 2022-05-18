@@ -2,28 +2,80 @@
 <html lang="en">
 <head>
     <%- include('../partials/head'); %>
-    <title>Chi tiết nhân viên</title>
+    <title>Thông tin nhân viên</title>
+    <base href="http://localhost:3000" />
+    <script src="./employeeDetail.js"></script>
+    <style>
+        #detail {margin: 20px;}
+        #employeeID {width: auto;}
+    </style>
 </head>
 <body>
     <header>
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <div>
-            <h1> Chi tiết nhân viên </h1>
-            <h3> Họ tên</h3>
-            <p><%= data.name %></p>
-            <h3> Email</h3>
-            <p><%= data.email %></p>
-            <h3> Số điện thoại</h3>
-            <p><%= data.phone %></p>
-            <h3> Địa chỉ ví</h3>
-            <p><%= data.walletAddress %></p>
-            <a href="">
+        <div id="detail">
+            <h1> Thông tin nhân viên </h1> 
+            <table class="table">
+                <tr>
+                    <th scope="col"> ID </th>
+                    <td scope="row">
+                        <input class="form-control" id="employeeID" value="<%= data._id%>" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col"> Ngày khởi tạo </th>
+                    <td scope="row"><%= data.date%></td>
+                </tr>
+                <tr>
+                    <th scope="col"> Tên nhân viên </th>
+                    <td scope="row"><%= data.name%></td>
+                </tr>
+                <tr>
+                    <th scope="col"> Email </th>
+                    <td scope="row"><%= data.email%></td>
+                </tr>
+                <tr>
+                    <th scope="col"> Số điện thoại </th>
+                    <td scope="row"><%= data.phone%> PMC</td>
+                </tr>
+                <tr>
+                    <th scope="col"> Địa chỉ ví MetaMask </th>
+                    <td scope="row"><%= data.walletAddress%></td>
+                </tr>
+                <tr>
+                    <th scope="col"> Dự án đã tham gia </th>
+                    <% if(data.assigned.length){
+                
+                        for(var i = 0; i< data.assigned.length; i++) {%>
+                            <tr>
+                                <td scope="row"> # <%= (i+1) %> </th>
+                                <td scope="row"><%= data.assigned[i]%></td>
+                            </tr>
+                    <% }
+                
+                    }else{ %>
+                        <tr>
+                            <td colspan="3">Chưa có dự án tham gia</td>
+                        </tr>
+                        <% } %>
+                </tr>
+            </table>
+            <a href="/task">
+                <button type="button" class="btn btn-primary"> Quản lý công việc </button>
+            </a>
+            <a href="/project/finish/<%= data._id%>">
                 <button type="button" class="btn btn-primary">
-                    Chỉnh sửa
+                    Hoàn thành
                 </button>
             </a>
+            
+                <button id="btnDelete" type="button" class="btn btn-primary">
+                    Xoá
+                </button>
+                
+            
         </div>
     </main>
     <footer>

@@ -18,7 +18,7 @@ module.exports.list = (req, res) => {
 
 module.exports.getDetail = (req, res) => {
     var id = req.params.id
-    console.log('Get detail of project:',id)
+    console.log('Get detail of employee:',id)
     employeeModel.findOne({_id: id}, (error, employee) => {
         if (!error){
             res.render('users/detail', {
@@ -57,4 +57,18 @@ module.exports.postCreate = (req, res) => {
             }
         }); 
     }
+}
+
+module.exports.delete =(req, res) => {
+    var id = req.body.id
+    console.log('Deleting employee:', id)
+    employeeModel.deleteOne({_id: id}, (error, employee) => {
+        if(!error){
+            console.log("Deleted employee:", id)
+            res.json({result:1, message: 'Deleted!'});
+        }else{
+            console.log("Failed to delete employee:", id)
+            res.json({result:0, message: 'Failed!'});
+        }
+    })
 }

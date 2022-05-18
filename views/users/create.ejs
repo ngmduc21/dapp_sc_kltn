@@ -15,9 +15,10 @@
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <h1>Tạo nhân viên mới</h1>
-    <div id="employee-create-form">
-      <form>
+      <h1>Tạo nhân viên mới</h1>
+      <button type="button" id="btnConnectMM" class="btn btn-primary"> Kết nối với Ví MetaMask </button>
+      <div id="employee-create-form">
+        <form>
           <div class="mb-3">
             <label for="inputName" class="form-label">Tên nhân viên</label>
             <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
@@ -45,10 +46,11 @@
               Cung cấp địa chỉ ví của nhân viên 
               </div>
             </div>
+            <button id="btnSubmit" type="submit" class="btn btn-primary">Xác nhận</button>
           </div>
-          <button id="btnSubmit" type="submit" class="btn btn-primary">Xác nhận</button>
+          
         </form>
-  </div>
+      </div>
     </main>
     <footer>
         <%- include('../partials/footer'); %>
