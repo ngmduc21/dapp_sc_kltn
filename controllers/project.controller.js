@@ -44,7 +44,7 @@ module.exports.getDetail = (req, res) => {
     projectModel.findOne({_id: id}, (error, project) => {
         if (!error){
             res.render('project/detail', {
-                data: project
+                data: project,
             })
         }
         else {
@@ -82,7 +82,8 @@ module.exports.postcreate =(req, res) => {
             leader: req.body.leader,
             numberOfMembers: req.body.numberOfMembers,
             budget: req.body.budget,
-            listMembers: [req.body.leader]
+            listMembers: [req.body.leader],
+            date: Date.now(),
         })
 
         newProject.save(function(error){
@@ -91,7 +92,7 @@ module.exports.postcreate =(req, res) => {
                 res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
             }else {
                 console.log("Đã tạo thành công dự án mới!")
-                res.json({result:1, message: newProject});
+                res.json({result:1, message: newProject._id});
             }
         })
     }
@@ -153,4 +154,19 @@ module.exports.createList = (req, res) => {
             console.log('Users list: Unable to fetch data!')
         }
     })
+}
+
+module.exports.searchLeader = (req, res) => {
+    if(!req.body.name){
+        res.json({result: 0, message: "Not enough required information!"})
+    }else{
+        employeeModel.findOne({name: req.body.name}, (error, employee) => {
+            if (!error){
+                res.json({result: 1, message: employee.email})
+            }
+            else {
+                res.json({result: 0, message: "Cant find email"})
+            }
+        })
+    }
 }

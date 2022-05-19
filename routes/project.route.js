@@ -19,4 +19,6 @@ router.post('/finish', controller.postFinish)
 
 router.post('/delete', controller.delete)
 
+router.post('/searchLeader', controller.searchLeader)
+
 module.exports = router

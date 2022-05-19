@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     $("#btnDelete").confirm({
         title: 'Xác nhận',
         content: 'Bạn chắc chắn muốn xoá dự án này ?',
