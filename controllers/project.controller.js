@@ -162,7 +162,7 @@ module.exports.searchLeader = (req, res) => {
     }else{
         employeeModel.findOne({name: req.body.name}, (error, employee) => {
             if (!error){
-                res.json({result: 1, message: employee.email})
+                res.json({result: 1, message: employee})
             }
             else {
                 res.json({result: 0, message: "Cant find email"})

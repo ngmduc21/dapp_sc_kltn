@@ -7,8 +7,9 @@
     <base href="http://localhost:3000" />
     <script src="./projectCreate.js"></script>
     <style>
-      #project-create-form {margin: 20px;}
-      #leader, #leaderEmail {width: 200px; height: auto; margin-bottom: 10px;}
+      #project-create-form {margin: 20px; }
+      #leader, #leaderEmail, #numberOfMember {width: 200px; height: auto; margin-bottom: 5px; }
+      #listMember {margin-bottom: 10px;}
     </style>
 </head>
 
@@ -17,17 +18,18 @@
     <%- include('../partials/header'); %>
   </header>
   <main>
-    <h1>Tạo dự án mới</h1>
+    
     <div id="project-create-form">
+      <h1>Tạo dự án mới</h1>
       <form>
-          <div class="mb-3">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="inputName" placeholder="example" aria-describedby="nameHelp">
             <label for="inputName" class="form-label">Tên dự án</label>
-            <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
             <div id="nameHelp" class="form-text">Lựa chọn tên cho dự án khởi tạo</div>
           </div>
-          <div class="mb-3">
+          <div class="form-floating mb-3">
+            <input type="text" id="inputClient" class="form-control" placeholder="example" aria-describedby="clientHelp">
             <label for="inputClient" class="form-label">Tên khách hàng</label>
-            <input type="text" id="inputClient" class="form-control" aria-describedby="clientHelp">
             <div id="clientHelp" class="form-text">
             Cung cấp tên khách hàng của dự án
             </div>
@@ -37,38 +39,41 @@
             <table>
               <tr>
                 <td>
-                  <select id="leader" class="form-control" aria-describedby="leaderHelp">
+                  <select id="leader" class="form-select" aria-describedby="leaderHelp">
                     <% if(data.length){ for(var i=0; i< data.length; i++) {%>
                       <option>
                         <%= data[i].name%>
                       </option>
                       <% }} %>
                   </select>
+                </td>
+                <td>
                   <input class="form-control" id="leaderEmail" value="Email" readonly>
                 </td>
               </tr>
             </table>
-                
-              
-
-              
-            
             <div id="leaderHelp" style="margin-bottom: 10px;" class="form-text">Chọn Leader của dự án</div>
-            <div class="mb-3">
+          </div>
+            <div class="form-floating mb-3">
+              <input type="text" id="inputBudget" class="form-control" placeholder="example" aria-describedby="budgetHelp">
               <label for="inputBudget" class="form-label">Ngân sách Token</label>
-              <input type="text" id="inputBudget" class="form-control" aria-describedby="budgetHelp">
               <div id="budgetHelp" class="form-text">
               Nhập số lượng Token thưởng của dự án
               </div>
             </div>
             <div class="mb-3">
               <label for="inputNumberofMember" class="form-label">Số thành viên</label>
-              <input type="text" id="inputNumberofMember" class="form-control" aria-describedby="memberHelp">
-              <div id="memberHelp" class="form-text">
+              <select id="numberOfMember" class="form-select" aria-describedby="numberOfMemberHelp">
+                <% if(data.length){ for(var i=0; i< data.length; i++) {%>
+                  <option>
+                    <%= i+1%>
+                  </option>
+                  <% }} %>
+              </select>
+              <div id="numberOfMemberHelp" class="form-text">
               Nhập số lượng thành viên của dự án
               </div>
             </div>
-          </div>
           <button id="btnSubmit" type="submit" class="btn btn-primary">Xác nhận</button>
         </form>
   </div>

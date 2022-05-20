@@ -13,12 +13,12 @@ $(document).ready(function(){
                         id:$("#projectID").val()
                     }, function(data){
                         if(data.result == 1){
-                            $.alert('Thao tác thành công! Chuyển hướng trong 5 giây.')
+                            $.alert('Thao tác thành công! Trở lại sau 3 giây.')
                             setTimeout(
                                 function() 
                                 {
                                     window.location = "/project/list"
-                                }, 5000);
+                                }, 3000);
                         }
                         else{
                             $.alert('Thao tác thất bại')

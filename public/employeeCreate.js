@@ -134,7 +134,7 @@ $(document).ready(function(){
                         console.log(data);
                         if(data.result == 1){
                             //contractMM.methods.Register(data.message._id).send({//from: userAccount})
-                            $.alert("Thao tác thành công! Chuyển hướng trong 5 giây.");
+                            $.alert("Thao tác thành công! Trở lại sau 3 giây");
                             setTimeout(
                                 function() 
                                 {

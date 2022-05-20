@@ -6,43 +6,61 @@
     <title>Hoàn thành dự án</title>
     <script src="./scripts/web3.js"></script>
     <script src="./finishProject.js"></script>
+    <style>
+        #finish, #main {margin: 20px; margin-right: 20%;}
+        #projectID, #leader {width: auto;}
+        #infoTable {width: auto;}
+    </style>
 </head>
 <body>
     <header>
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <div>
+        <div id="main">
             <h1> Hoàn thành dự án </h1> 
             <div>
                 <button type="button" id="btnConnectMM" class="btn btn-primary"> Kết nối với Ví MetaMask </button>
             </div>
-            <div id="finish-project-form">
-                <table class="table">
+            <h3>Thông tin dự án</h3>
+            <div id="finish">
+                <table id="infoTable" class="table">
+                    <tr>
+                        <th scope="col"> ID </th>
+                        <td scope="row">
+                            <input class="form-control" id="projectID" value="<%= data._id%>" readonly>
+                        </td>
+                    </tr>
                     <tr>
                         <th scope="col"> Tên dự án </th>
                         <td  scope="row"><%= data.name%></td>
-                    </tr>
-                    <tr>
-                        <th scope="col"> Khách hàng </th>
-                        <td  scope="row"><%= data.client%></td>
-                    </tr>
-                    <tr>
-                        <th scope="col"> Thành viên </th>
-                        <td scope="row"><%= data.listMembers%></td>
                     </tr>
                     <tr>
                         <th scope="col"> Ngân sách </th>
                         <td  scope="row"><%= data.budget%> PMC</td>
                     </tr>
                 </table>
-                <form>
-                    <input type="text" name="name" value="<%= data.name%>" placeholder="Tên dự án"><br>
-                    <input type="text" name="client" value="<%= data.client%>" placeholder="Tên dự án"><br>
-                    <input type="text" name="budget" value="<%= data.budget%>" placeholder="Tên dự án"><br>
-                </form>
             </div>
-            
+            <br>
+            <h3>
+                Kết quả thực hiện
+            </h3>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tên thành viên</th>
+                            <th scope="col">Tác vụ hoàn thành</th>
+                            <th scope="col">Thưởng</th>
+                            <th scope="col">Tổng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
             <div>
                 <button type="button" class="btn btn-primary" id="btnFinishProject">
                     Kết thúc và trả thưởng

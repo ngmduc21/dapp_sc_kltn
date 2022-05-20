@@ -12,7 +12,7 @@ $(document).ready(function(){
                         id:$("#employeeID").val()
                     }, function(data){
                         if(data.result == 1){
-                            $.alert('Thao tác thành công! Chuyển hướng trong 5 giây.')
+                            $.alert('Thao tác thành công! Trở lại sau 3 giây.')
                             setTimeout(
                                 function() 
                                 {
