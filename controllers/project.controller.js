@@ -3,7 +3,7 @@ const res = require("express/lib/response");
 var employeeModel = require("../models/employee.model");
 var projectModel = require('../models/project.model')
 var finishedProjectModel = require('../models/finishedProject.model')
-var employeeModel = require("../models/employee.model");
+var assignedModel = require('../models/assigned.model')
 
 var finishedProjectID = ""
 
@@ -92,7 +92,22 @@ module.exports.postcreate =(req, res) => {
                 res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
             }else {
                 console.log("Đã tạo thành công dự án mới!")
-                res.json({result:1, message: newProject._id});
+                res.json({result:1, message: newProject._id})
+                var newAssigned = new assignedModel({
+                    projectID: newProject._id,
+                    projectName: newProject.name,
+                    employeeID: [],
+                    performance: []
+                })
+                newAssigned.save(function(error2){
+                    if(error2){
+                        console.log(error2)
+                        //res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
+                    }else {
+                        console.log("Đã tạo thành công assign mới cho dự án!")
+                        //res.json({result:1, message: newProject._id})
+                    } 
+                })
             }
         })
     }
@@ -169,4 +184,31 @@ module.exports.searchLeader = (req, res) => {
             }
         })
     }
+}
+
+module.exports.addMembers = (req, res) => {
+    var id = req.params.id
+    console.log('Adding members for project:',id)
+    assignedModel.findOne({projectID: id}, (error, assigned) => {
+        if (!error){
+            employeeModel.find((error, employee) => {
+                if(!error){
+                    projectModel.findOne({_id: id}, (error, project) => {
+                        res.render('project/addMembers', {
+                            employee: employee, project: project, assigned: assigned
+                        })
+                    })
+                }else{
+                    console.log('Users list: Unable to fetch data!')
+                }
+            })
+        }
+        else {
+            console.log('Project id: Unable to get project data!')
+        }
+    })
+}
+
+module.exports.addToProject = (req, res) => {
+    console.log(req.body)
 }

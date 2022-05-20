@@ -13,6 +13,10 @@ router.get('/:id', controller.getDetail)
 
 router.get('/finish/:id', controller.finish)
 
+router.get('/addMembers/:id', controller.addMembers)
+
+router.post('/addToProject', controller.addToProject)
+
 router.post('/create', controller.postcreate)
 
 router.post('/finish', controller.postFinish)

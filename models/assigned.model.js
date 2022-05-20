@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 
-const projectSchema = new mongoose.Schema({
-    name: String,
-    client: String,
-    leader: String,
-    numberOfMembers: String,
-    budget: String,
-    listMembers: Array,
-    date: Date,
+const assignedSchema = new mongoose.Schema({
+    projectID: String,
+    projectName: String,
+    employeeID: Array,
+    performance: Array,
 })
 
-module.exports = mongoose.model('project', projectSchema)
+module.exports = mongoose.model('assigned', assignedSchema)

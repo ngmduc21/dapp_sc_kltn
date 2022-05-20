@@ -7,7 +7,7 @@
     <script src="./projectDetail.js"></script>
     <style>
         #detail {margin: 20px;}
-        #projectID, #leader {width: auto;}
+        #projectID, #leader, #numberMember {width: auto;}
     </style>
 </head>
 <body>
@@ -42,7 +42,9 @@
                     
                 </tr>
                 <tr>
-                    <th scope="col"> Thành viên </th>
+                    <th scope="col"> Số thành viên </th>
+                    <td scope="row"><%=data.numberOfMembers%>
+                    </td>
                     <% if(data.listMembers.length){
                 
                         for(var i = 0; i< data.listMembers.length; i++) {%>
@@ -74,10 +76,15 @@
                     Hoàn thành
                 </button>
             </a>
-            
-                <button id="btnDelete" type="button" class="btn btn-primary">
-                    Xoá
+            <a href="/project/addMembers/<%= data._id%>">
+                <button type="button" class="btn btn-primary">
+                    Thêm thành viên
                 </button>
+            </a>
+            
+            <button id="btnDelete" type="button" class="btn btn-primary">
+                Xoá
+            </button>
                 
             
         </div>

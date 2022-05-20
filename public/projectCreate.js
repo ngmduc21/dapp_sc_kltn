@@ -12,26 +12,6 @@ $(document).ready(function(){
         })
     })
 
-    $("#numberOfMember").click(function(){
-        var mem = $("#numberOfMember").val()
-        console.log(mem)
-        for (var i=1; i < mem; i++){
-            $("#tbMember").append(`
-                <tr>
-                    <td>
-                        <select id="mem`+i+`" class="form-select" aria-describedby="leaderHelp">
-                        <% if(data.length){ for(var i=0; i< data.length; i++) {%>
-                        <option>
-                            <%= data[i].name%>
-                        </option>
-                        <% }} %>
-                    </select>
-                    </td>
-                </tr>
-            `)
-        }
-    })
-
     $("#btnSubmit").confirm({
         title: 'Xác nhận',
         content: 'Bạn chắc chắn muốn tạo dự án này ?',
@@ -54,7 +34,7 @@ $(document).ready(function(){
                                 function() 
                                 {
                                     window.location = "/project/list"
-                                }, 5000);                           
+                                }, 3000);                           
                         }
                         else{
                             $.alert('Thao tác thất bại')
