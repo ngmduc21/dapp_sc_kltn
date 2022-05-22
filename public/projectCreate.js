@@ -5,12 +5,59 @@ $(document).ready(function(){
         }, function(data){
             if(data.result == 1){
                 $("#leaderEmail").val(data.message.email)
-                $("#leaderList").val(data.message.name)
             }else{
                 $.alert(data.message)
             }
         })
     })
+
+    var counter = 0
+
+    $("#numberOfMember").click(function(){
+
+        if(counter != 0){
+            for(var i=1; i<= counter; i++){
+                var div = "div" + i
+                var element = document.getElementById(div)
+                element.remove()
+            }
+        }
+        counter = $("#numberOfMember").val()
+
+        for(var i=1; i <= counter; i++){
+            var newInput = $(document.createElement('div')).attr("class", 'form-floating mb-3').attr("id", 'div' + i);
+            
+            newInput.after().html('<input type="text" class="form-control" placeholder="example" aria-describedby="clientHelp" id="mem' + counter + '" value="">' + 
+                '<label for="mem' + i + '" class="form-label">Tên thành viên ' + i + ' </label>' +
+                '<div id="mem' + i + 'Help" class="form-text">Cung cấp tên thành viên ' + i + ' của dự án </div>'); 
+
+            newInput.appendTo("#numberMemberList")
+        }
+    })
+
+    if(counter != 0){
+        for(var i=1; i <= counter; i++){
+            var div = "div" +i
+            var divelement = document.getElementById(div)
+            var mem = "mem" + i
+            var element = document.getElementById(mem)
+            $(element).click(function(){
+                $.alert("Click")
+                $.post("./project/searchLeader",{
+                    name:$(element).val(),
+                }, function(){
+                    var result = $(document.createElement('div')).attr("id", 'result')
+                    if(data.result == 1){
+                        result.after().html('<text> Chính xác </text>')
+                        result.appendTo(divelement)
+                    }else{
+                        result.after().html('<text> Không tìm thấy </text>')
+                        result.appendTo(divelement)
+                    }
+                })
+            })
+        }
+    }
 
     $("#btnSubmit").confirm({
         title: 'Xác nhận',

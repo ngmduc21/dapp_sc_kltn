@@ -10,6 +10,7 @@
       #project-create-form {margin: 20px; }
       #leader, #leaderEmail, #numberOfMember {width: 200px; height: auto; margin-bottom: 5px; }
       #listMember {margin-bottom: 10px;}
+      #numberOfMemberHelp {margin-bottom: 20px;}
     </style>
 </head>
 
@@ -61,7 +62,7 @@
               Nhập số lượng Token thưởng của dự án
               </div>
             </div>
-            <div class="mb-3">
+            <div id="numberMemberList" class="mb-3">
               <label for="inputNumberofMember" class="form-label">Số thành viên</label>
               <select id="numberOfMember" class="form-select" aria-describedby="numberOfMemberHelp">
                 <% if(data.length){ for(var i=0; i< data.length; i++) {%>
