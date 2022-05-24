@@ -6,7 +6,7 @@ var finishedProjectModel = require('../models/finishedProject.model')
 var assignedModel = require('../models/assigned.model')
 
 var finishedProjectID = ""
-
+var modifyProjectID = ""
 module.exports.index = (req, res) => {
     res.render('project/index')
 }
@@ -201,6 +201,22 @@ module.exports.addMembers = (req, res) => {
                 }else{
                     console.log('Users list: Unable to fetch data!')
                 }
+            })
+        }
+        else {
+            console.log('Project id: Unable to get project data!')
+        }
+    })
+}
+
+module.exports.taskManager = (req, res) => {
+    var id = req.params.id
+    modifyProjectID = id
+    console.log('Modifying project:',id)
+    projectModel.findOne({_id: id}, (error, project) => {
+        if (!error){
+            res.render('project/task', {
+                data: project,
             })
         }
         else {

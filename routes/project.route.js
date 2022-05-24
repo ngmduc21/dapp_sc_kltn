@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 
 var controller = require('../controllers/project.controller')
+const { route } = require('./dashboard.route')
 
 router.get('/', controller.list)
 
@@ -24,5 +25,7 @@ router.post('/finish', controller.postFinish)
 router.post('/delete', controller.delete)
 
 router.post('/searchLeader', controller.searchLeader)
+
+router.get("/task/:id", controller.taskManager)
 
 module.exports = router
