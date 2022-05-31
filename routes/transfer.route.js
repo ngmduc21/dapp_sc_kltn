@@ -5,4 +5,8 @@ var controller = require('../controllers/transfer.controller')
 
 router.get('/', controller.index)
 
+router.get('/exchange', controller.exchange)
+
+router.get('/reward', controller.reward)
+
 module.exports = router
