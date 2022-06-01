@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="http://localhost:3000" />
     <%- include('../partials/head'); %>
     <title>Trao đổi token</title>
+    <script src="./scripts/web3.js"></script>
+    <script src="./transfer.js"></script>
+    <style>
+        #bcname, #bcsymbol, #bcdecimal {width: 300px;}
+    </style>
 </head>
 <body>
     <header>
@@ -12,12 +18,38 @@
         <h1>
             Trang trao đổi token
         </h1>
-        <a> 
+        <a href="/transfer/exchange"> 
             <button class="btn btn-primary" > Chuyển token </button>
         </a>
-        <a> 
+        <a href="/transfer/reward"> 
             <button class="btn btn-primary" > Đổi thưởng </button>
         </a>
+        <br>
+        <h1>Thông tin hệ thống</h1>
+        <button type="button" class="btn btn-primary" id="show">
+            Hiện
+        </button>
+        <table class="table">
+            <tr>
+                <th scope="col"> Tên blockchain</th>
+                <td scope="row">
+                    <input class="form-control" id="bcname" readonly>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col"> Tên ký hiệu</th>
+                <td scope="row">
+                    <input class="form-control" id="bcsymbol" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col"> Decimal</th>
+                <td scope="row">
+                    <input class="form-control" id="bcdecimal" value="" readonly>
+                </td>
+            </tr>
+        </table>
+
     </main>
     <footer>
         <%- include('../partials/footer'); %>
