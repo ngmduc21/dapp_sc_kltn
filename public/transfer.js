@@ -17,22 +17,89 @@ $(document).ready(function () {
     // Khai báo abi và địa chỉ của SC trên Network
     const abi = [
         {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
             "anonymous": false,
             "inputs": [
                 {
-                    "indexed": false,
+                    "indexed": true,
                     "internalType": "address",
-                    "name": "_employeeWallet",
+                    "name": "owner",
                     "type": "address"
                 },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "spender",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Approval",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_id",
+                    "type": "string"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_wallet",
+                    "type": "address"
+                }
+            ],
+            "name": "Create",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
                 {
                     "indexed": false,
                     "internalType": "string",
                     "name": "_id",
                     "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "_wallet",
+                    "type": "address"
                 }
             ],
             "name": "CreateNewEmployee",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
             "type": "event"
         },
         {
@@ -43,9 +110,149 @@ $(document).ready(function () {
                     "type": "string"
                 }
             ],
-            "name": "Register",
+            "name": "Remove",
             "outputs": [],
             "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "_id",
+                    "type": "string"
+                }
+            ],
+            "name": "RemoveEmployee",
+            "type": "event"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "transfer",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Transfer",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "transferFrom",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "allowances",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -65,18 +272,121 @@ $(document).ready(function () {
                 },
                 {
                     "internalType": "address",
-                    "name": "_employeeWallet",
+                    "name": "_wallet",
                     "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                }
+            ],
+            "name": "balanceOf",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "balances",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "decimal",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getOwner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "name",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "symbol",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "totalSupply",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
             "type": "function"
         }
     ];
-    const scAddress = "0xF780951055Ae5F3e8bB416581BD9ae4ed36AdbDe";
+    const scAddress = "0x93CA3Bc0B5B0F5ecb2Fbc728ABA52243058142f5";
 
     // Khởi tạo biến web3
-    const web3 = new Web3('http://127.0.0.1:9545');
+    const web3 = new Web3(window.ethereum);
     window.ethereum.enable();
 
     // Kết nối đến SC và sử dụng ví MetaMask làm địa chỉ gọi SC
@@ -91,9 +401,17 @@ $(document).ready(function () {
 
     var userAccount = "";
 
-    isMetamaskInstalled()
+    isMetamaskInstalled();
 
-    $("#test").click(function(){
+    $("#btnConnectMM").click(function(){
+        connectMM().then((data)=>{
+            userAccount = data[0];
+            console.log(userAccount);
+        }).catch((err) => {
+            console.log(err);
+        });
+    });
+    $("#show").click(function(){
         connectMM().then((data)=>{
             userAccount = data[0];
             console.log(userAccount);
@@ -104,19 +422,24 @@ $(document).ready(function () {
         contractMM.methods.name().call({
             from: userAccount
         }).then(function(result){
-            $("#result").val(result)
+            $("#bcname").val(result)
+            console.log(result)
+        });
+
+        contractMM.methods.symbol().call({
+            from: userAccount
+        }).then(function(result){
+            $("#bcsymbol").val(result)
+            console.log(result)
+        });
+
+        contractMM.methods.decimal().call({
+            from: userAccount
+        }).then(function(result){
+            $("#bcdecimal").val(result)
             console.log(result)
         })
+
     })
-    // Thông tin blockchain
-    //var onwner = contractMM.methods.getOwner()
-    //console.log(onwner)
-    //const bcname = contractMM.methods.name().call();
-    //const bcsymbol = contractMM.methods.symbol().call();
-    //const bcdecimal = contractMM.methods.decimal().call();
-    // console.log(bcname);
-    //$("#bcname").val(bcname))
-    //$("#bcsymbol").val(bcsymbol)
-    //$("#bcdecimal").val(bcdecimal)
-}
-)
+});
+

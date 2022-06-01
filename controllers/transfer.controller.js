@@ -10,6 +10,9 @@ module.exports.reward = (req, res) => {
     res.render("transfer/reward");
 }
 
+module.exports.test = (req, res) => {
+    res.render("transfer/indextest");
+}
 // const Web3 = require('web3');
 // const PMC = require('./contracts/PMC.json');
 
