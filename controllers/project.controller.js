@@ -82,7 +82,7 @@ module.exports.postcreate =(req, res) => {
             leader: req.body.leader,
             numberOfMembers: req.body.numberOfMembers,
             budget: req.body.budget,
-            listMembers: [req.body.leader],
+            listMembers: "none",
             date: Date.now(),
         })
 
@@ -91,7 +91,7 @@ module.exports.postcreate =(req, res) => {
                 console.log(error)
                 res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
             }else {
-                console.log("Đã tạo thành công dự án mới!")
+                console.log("Đã tạo thành công dự án", newProject.name)
                 res.json({result:1, message: newProject._id})
                 var newAssigned = new assignedModel({
                     projectID: newProject._id,
@@ -104,7 +104,12 @@ module.exports.postcreate =(req, res) => {
                         console.log(error2)
                         //res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
                     }else {
-                        console.log("Đã tạo thành công assign mới cho dự án!")
+                        console.log("Đã tạo thành công assign mới cho dự án", newProject.name)
+                        projectModel.updateOne({_id: newProject._id}, {$set: {listMembers: newAssigned._id}}, function(error3, res){
+                            if(!error3){
+                                console.log("Đã cập nhật assigned id cho project", newProject.name)
+                            }
+                        })
                         //res.json({result:1, message: newProject._id})
                     } 
                 })
@@ -173,16 +178,45 @@ module.exports.createList = (req, res) => {
 
 module.exports.searchLeader = (req, res) => {
     if(!req.body.name){
-        res.json({result: 0, message: "Not enough required information!"})
+        res.json({result: 0, message: "Find employee: Not enough required information!"})
     }else{
         employeeModel.findOne({name: req.body.name}, (error, employee) => {
             if (!error){
                 res.json({result: 1, message: employee})
+                console.log("Found employee")
             }
             else {
                 res.json({result: 0, message: "Cant find email"})
             }
         })
+    }
+}
+
+module.exports.searchMembers = (req, res) => {
+    if(!req.body.mem1 || !req.body.mem2 || !req.body.mem3){
+        res.json({result: 0, message: "Find employee: Not enough required information!"})
+    }else{
+        var list = [req.body.mem1, req.body.mem2, req.body.mem3]
+        var err = 0
+        for(var i=0; i< list.length; i++){
+            employeeModel.findOne({name: list[i]}, (error, employee) => {
+                if (!error){
+                    
+                    //res.json({result: 1, message: employee})
+                    console.log("Found employee")
+                }
+                else{
+                    err += 1
+                }
+                
+            })
+        }
+        if(err == 0){
+            res.json({result: 1, message: employee})
+        }else{
+            res.json({result: 0, message: "Not found"})
+        }   
+        
     }
 }
 

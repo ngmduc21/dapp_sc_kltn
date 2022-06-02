@@ -26,6 +26,8 @@ router.post('/delete', controller.delete)
 
 router.post('/searchLeader', controller.searchLeader)
 
+router.post('/searchMembers', controller.searchMembers)
+
 router.get("/task/:id", controller.taskManager)
 
 module.exports = router
