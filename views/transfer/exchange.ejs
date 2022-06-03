@@ -7,48 +7,56 @@
     <script src="./scripts/web3.js"></script>
     <script src="./exchange.js"></script>
     <style>
+        #receiverWallet, #tokenAmount, #senderWallet, #senderAmount {width: 600px;}
+        .center-parent {
+          text-align: center;
+        }
     </style>
 </head>
+
 <body>
     <header>
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <h1>
-            Trao đổi token
+        <%- include('../partials/transfer/sidenav'); %>
+        <h1 class="center-parent">
+            Chuyển token
         </h1>
-        <a href="/transfer/exchange"> 
-            <button class="btn btn-primary" > Chuyển token </button>
-        </a>
-        <a href="/transfer/reward"> 
-            <button class="btn btn-primary" > Đổi thưởng </button>
-        </a>
         <br>
-        <h2>Thông tin hệ thống</h2>
-        <button type="button" class="btn btn-primary" id="show">
-            Hiện
-        </button>
+        <h2 class="center-parent">Thông tin người gửi</h2>
         <table class="table">
             <tr>
-                <th scope="col"> Tên blockchain</th>
+                <th scope="col"> Địa chỉ ví người gửi</th>
                 <td scope="row">
-                    <input class="form-control" id="bcname" readonly>
+                    <input class="form-control" id="senderWallet" readonly>
                 </td>
             </tr>
             <tr>
-                <th scope="col"> Tên ký hiệu</th>
+                <th scope="col"> Số dư token (PMC)</th>
                 <td scope="row">
-                    <input class="form-control" id="bcsymbol" value="" readonly>
-                </td>
-            </tr>
-            <tr>
-                <th scope="col"> Decimal</th>
-                <td scope="row">
-                    <input class="form-control" id="bcdecimal" value="" readonly>
+                    <input class="form-control" id="senderAmount" readonly>
                 </td>
             </tr>
         </table>
-
+        <h2 class="center-parent">Thông tin giao dịch</h2>
+        <table class="table">
+            <tr>
+                <th scope="col"> Địa chỉ ví người nhận</th>
+                <td scope="row">
+                    <input class="form-control" id="receiverWallet" >
+                </td>
+            </tr>
+            <tr>
+                <th scope="col"> Số token gửi (PMC)</th>
+                <td scope="row">
+                    <input class="form-control" id="tokenAmount">
+                </td>
+            </tr>
+        </table>
+        <a> 
+            <button type="button" class="btn btn-primary" id="submitExchange" > Thực hiện chuyển </button>
+        </a>
     </main>
     <footer>
         <%- include('../partials/footer'); %>
