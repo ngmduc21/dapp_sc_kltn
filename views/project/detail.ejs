@@ -43,14 +43,12 @@
                 </tr>
                 <tr>
                     <th scope="col"> Số thành viên </th>
-                    <td scope="row"><%=data.numberOfMembers%>
-                    </td>
-                    <% if(data.listMembers.length){
-                
-                        for(var i = 0; i< data.listMembers.length; i++) {%>
+                    <td scope="row"><%=data.numberOfMembers%></td>
+                    <% if(member.length){
+                        for(var i = 0; i< member.length; i++) {%>
                             <tr>
                                 <td scope="row"> #<%= (i+1) %> </td>
-                                <td scope="row"><%= data.listMembers[i]%></td>
+                                <td scope="row"><%= member[i]%></td>
                             </tr>
                             
                     <% }

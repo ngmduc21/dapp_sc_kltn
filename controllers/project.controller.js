@@ -40,12 +40,31 @@ module.exports.list = (req, res) => {
 // Get details of each project
 module.exports.getDetail = (req, res) => {
     var id = req.params.id
+    var member = []
+    var count=0
     console.log('Get detail of project:',id)
     projectModel.findOne({_id: id}, (error, project) => {
-        if (!error){
-            res.render('project/detail', {
-                data: project,
+        if (!error && project != null){
+            assignedModel.findOne({_id: project.assigned}, (error2, assigned) => {
+                if(!error2 && assigned != null){
+                    if(assigned.employeeID.length){
+                        for(var i=0; i<assigned.employeeID.length; i++){
+                            employeeModel.findOne({_id: assigned.employeeID[i]}, (error3, employee) => {
+                                if(!error3 && employee != null){
+                                    member.push(employee.name)
+                                    count++
+                                }
+                                if(count == assigned.employeeID.length){
+                                    res.render('project/detail', {
+                                        data: project, member: member
+                                    })
+                                }
+                            })
+                        }
+                    }
+                }
             })
+            
         }
         else {
             console.log('Project id: Unable to get project data!')
@@ -82,7 +101,7 @@ module.exports.postcreate =(req, res) => {
             leader: req.body.leader,
             numberOfMembers: req.body.numberOfMembers,
             budget: req.body.budget,
-            listMembers: "none",
+            assigned: "none",
             date: Date.now(),
         })
 
@@ -105,7 +124,7 @@ module.exports.postcreate =(req, res) => {
                         //res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
                     }else {
                         console.log("Đã tạo thành công assign mới cho dự án", newProject.name)
-                        projectModel.updateOne({_id: newProject._id}, {$set: {listMembers: newAssigned._id}}, function(error3, res){
+                        projectModel.updateOne({_id: newProject._id}, {$set: {assigned: newAssigned._id}}, function(error3, res){
                             if(!error3){
                                 console.log("Đã cập nhật assigned id cho project", newProject.name)
                             }
@@ -176,71 +195,39 @@ module.exports.createList = (req, res) => {
     })
 }
 
-module.exports.searchLeader = (req, res) => {
+module.exports.searchEmployee = (req, res) => {
     if(!req.body.name){
         res.json({result: 0, message: "Find employee: Not enough required information!"})
     }else{
+        console.log(req.body.name)
         employeeModel.findOne({name: req.body.name}, (error, employee) => {
-            if (!error){
+            if (!error && employee != null){
                 res.json({result: 1, message: employee})
                 console.log("Found employee")
             }
             else {
-                res.json({result: 0, message: "Cant find email"})
+                res.json({result: 0, message: "Cant find employee"})
             }
         })
     }
 }
 
-module.exports.searchMembers = (req, res) => {
-    if(!req.body.mem1 || !req.body.mem2 || !req.body.mem3){
-        res.json({result: 0, message: "Find employee: Not enough required information!"})
-    }else{
-        var list = [req.body.mem1, req.body.mem2, req.body.mem3]
-        var err = 0
-        for(var i=0; i< list.length; i++){
-            employeeModel.findOne({name: list[i]}, (error, employee) => {
-                if (!error){
-                    
-                    //res.json({result: 1, message: employee})
-                    console.log("Found employee")
-                }
-                else{
-                    err += 1
-                }
-                
-            })
-        }
-        if(err == 0){
-            res.json({result: 1, message: employee})
-        }else{
-            res.json({result: 0, message: "Not found"})
-        }   
-        
-    }
-}
-
 module.exports.addMembers = (req, res) => {
-    var id = req.params.id
-    console.log('Adding members for project:',id)
-    assignedModel.findOne({projectID: id}, (error, assigned) => {
-        if (!error){
-            employeeModel.find((error, employee) => {
-                if(!error){
-                    projectModel.findOne({_id: id}, (error, project) => {
-                        res.render('project/addMembers', {
-                            employee: employee, project: project, assigned: assigned
-                        })
-                    })
-                }else{
-                    console.log('Users list: Unable to fetch data!')
-                }
-            })
-        }
-        else {
-            console.log('Project id: Unable to get project data!')
-        }
-    })
+    if(!req.body.id){
+        res.json({result: 0, message: "Add member to assigned: Not enough required information!"})
+    }else{
+        employeeModel.findOne({name: req.body.employee}, (error, employee) => {
+            if (!error && employee != null){
+                console.log("Found employee")
+                assignedModel.updateOne({projectID: req.body.id}, {$set: {employeeID: employee._id}}, function(error, assigned){
+                    if(!error){
+                        console.log("Đã cập nhật assigned cho project", assigned.projectName)
+                    }
+                })
+            }
+        })
+    
+    }
 }
 
 module.exports.taskManager = (req, res) => {

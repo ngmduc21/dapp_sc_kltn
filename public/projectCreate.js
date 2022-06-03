@@ -1,10 +1,10 @@
 $(document).ready(function(){
     $("#leader").click(function(){
-        $.post("./project/searchLeader",{
+        $.post("./project/searchEmployee",{
             name:$("#leader").val(),
         }, function(data){
             if(data.result == 1){
-                $("#leaderEmail").val(data.message.email)
+                $("#leaderEmail").val(data.message._id)
             }else{
                 $.alert(data.message)
             }
@@ -36,8 +36,31 @@ $(document).ready(function(){
 
     })
 
-    $("#btCheck").click({
-        
+    var checked = 0
+
+    $("#btnCheck").click(function(){
+        if(counter){
+            for(var i=1; i<= counter; i++){
+                var mem = "mem" + i
+                var element = document.getElementById(mem)
+                console.log(element)
+
+                $.post("./project/searchEmployee", {
+                    name: $(element).val()
+                }, function(data){
+                    if(data.result == 1){
+                        $.alert('Tìm thấy thành viên trên hệ thống!')
+                        checked = 1   
+                        console.log(checked)                     
+                    }
+                    else{
+                        $.alert('Không tồn tại thành viên trên hệ thống!')
+                        console.log(checked) 
+                    }
+                })
+            }
+        }
+        console.log(checked)
     })
     
     $("#btnSubmit").confirm({
@@ -49,16 +72,13 @@ $(document).ready(function(){
                 btnClass: 'btn-blue',
                 keys: ['enter', 'shift'],
                 action: function(){
-
-                    if(data.result == 1){
-                                
+                    if(checked == 1){
                         $.post("./project/create", {
                             name:$("#inputName").val(),
                             client:$("#inputClient").val(),
                             leader:$("#leader").val(),
                             budget:$("#inputBudget").val(),
                             numberOfMembers:$("#numberOfMember").val(),
-                            listMember: list,
                         }, function(data){
                             if(data.result == 1){
                                 $.alert('Thao tác thành công! Trở lại sau 3 giây.')
@@ -66,16 +86,16 @@ $(document).ready(function(){
                                     function() 
                                     {
                                         window.location = "/project/list"
-                                    }, 3000);                           
+                                    }, 3000);             
                             }
                             else{
                                 $.alert('Thao tác thất bại')
                             }
-                        })
+                        })  
                     }else{
-                        $.alert(data.message)
+                        $.alert("Chưa kiểm tra thành viên")
                     }
-                    
+                      
                 }
             },
             

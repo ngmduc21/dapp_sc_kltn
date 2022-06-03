@@ -14,7 +14,7 @@ router.get('/:id', controller.getDetail)
 
 router.get('/finish/:id', controller.finish)
 
-router.get('/addMembers/:id', controller.addMembers)
+router.get('/addMembers', controller.addMembers)
 
 router.post('/addToProject', controller.addToProject)
 
@@ -24,9 +24,7 @@ router.post('/finish', controller.postFinish)
 
 router.post('/delete', controller.delete)
 
-router.post('/searchLeader', controller.searchLeader)
-
-router.post('/searchMembers', controller.searchMembers)
+router.post('/searchEmployee', controller.searchEmployee)
 
 router.get("/task/:id", controller.taskManager)
 
