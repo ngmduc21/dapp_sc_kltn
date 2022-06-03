@@ -8,6 +8,9 @@
     <script src="./transfer.js"></script>
     <style>
         #bcname, #bcsymbol, #bcdecimal {width: 300px;}
+        .center-parent {
+          text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -15,9 +18,10 @@
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <h1>
+        <h1 class="center-parent" >
             Trang trao đổi token
         </h1>
+        <div class="center-parent">
         <a href="/transfer/exchange"> 
             <button class="btn btn-primary" > Chuyển token </button>
         </a>
@@ -29,6 +33,7 @@
         <button type="button" class="btn btn-primary" id="show">
             Hiện
         </button>
+    </div>
         <table class="table">
             <tr>
                 <th scope="col"> Tên blockchain</th>
