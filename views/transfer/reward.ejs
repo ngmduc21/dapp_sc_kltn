@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="http://localhost:3000" />
+    <%- include('../partials/head'); %>
+    <title>Trao đổi token</title>
+    <script src="./scripts/web3.js"></script>
+    <script src="./exchange.js"></script>
+    <style>
+        #receiverWallet, #tokenAmount, #senderWallet, #senderAmount, #rewardType {width: 600px;}
+        .center-parent {
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <%- include('../partials/transfer/sidenav'); %>
+        <h1 class="center-parent">
+            Chuyển token
+        </h1>
+        <br>
+        <h2 class="center-parent">Thông tin ví nhân viên</h2>
+        <table class="table">
+            <tr>
+                <th scope="col"> Địa chỉ ví nhân viên</th>
+                <td scope="row">
+                    <input class="form-control" id="senderWallet" readonly>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col"> Số dư token (PMC)</th>
+                <td scope="row">
+                    <input class="form-control" id="senderAmount" readonly>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col"> Loại hình thưởng chuyển đổi</th>
+                <td scope="row">
+                    <select id="rewardType" class="form-select">
+                          <option id="dayoff">
+                            Ngày nghỉ
+                          </option>
+                          <option id="cash">
+                            Tiền mặt
+                          </option>
+                      </select>
+                </td>
+            </tr>
+            </table>
+        <a> 
+            <button type="button" class="btn btn-primary" id="submitReward" > Thực hiện đổi thưởng </button>
+        </a>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+</html>
