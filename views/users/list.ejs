@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        .center-parent {
+          text-align: center;
+        }
+        </style>
 <head>
     <%- include('../partials/head'); %>
     <title>Danh sách nhân viên</title>
@@ -9,10 +14,15 @@
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <h1> Danh sách nhân viên</h1>
+        <%- include('../partials/project/sidenav'); %>
+        <h1 class="center-parent"> Danh sách nhân viên</h1>
+        <div class="center-parent">
         <a href="/users/create">
-            <button class="btn btn-primary">Thêm nhân viên mới</button>
+            <button type="button" class="btn btn-primary">
+                Thêm nhân viên mới</button>
         </a>
+        </div>
+
         <div>
             <br>
             <table class="table">

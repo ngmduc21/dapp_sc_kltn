@@ -3,7 +3,7 @@ var router = express.Router()
 
 var controller = require('../controllers/users.controller')
 
-router.get('/', controller.list)
+router.get('/', controller.index)
 
 router.get('/list', controller.list)
 
