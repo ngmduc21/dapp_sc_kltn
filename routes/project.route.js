@@ -4,7 +4,7 @@ var router = express.Router()
 var controller = require('../controllers/project.controller')
 const { route } = require('./dashboard.route')
 
-router.get('/', controller.list)
+router.get('/', controller.index)
 
 router.get('/list', controller.list)
 
