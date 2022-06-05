@@ -1,3 +1,5 @@
+var employeeModel = require("../models/employee.model");
+
 module.exports.index = (req, res) => {
     res.render("transfer/index");
 }
@@ -12,6 +14,23 @@ module.exports.reward = (req, res) => {
 
 module.exports.test = (req, res) => {
     res.render("transfer/indextest");
+}
+
+module.exports.searchEmployee = (req, res) => {
+    if(!req.body.name){
+        res.json({result: 0, message: "Find employee: Not enough required information!"})
+    }else{
+        console.log(req.body.name)
+        employeeModel.findOne({employeeID: req.body.name}, (error, employee) => {
+            if (!error && employee != null){
+                res.json({result: 1, message: employee})
+                console.log("Found employee")
+            }
+            else {
+                res.json({result: 0, message: "Cant find employee"})
+            }
+        })
+    }
 }
 // const Web3 = require('web3');
 // const PMC = require('./contracts/PMC.json');

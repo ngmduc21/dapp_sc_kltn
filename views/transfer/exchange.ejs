@@ -7,7 +7,7 @@
     <script src="./scripts/web3.js"></script>
     <script src="./exchange.js"></script>
     <style>
-        #receiverWallet, #tokenAmount, #senderWallet, #senderAmount {width: 600px;}
+        #receiverWallet, #tokenAmount, #senderWallet, #senderAmount, #receiverName, #receiverID {width: 600px;}
         .center-parent {
           text-align: center;
         }
@@ -25,6 +25,9 @@
         </h1>
         <br>
         <h2 class="center-parent">Thông tin người gửi</h2>
+        <div class="center-parent"> 
+            <button type="button" class="btn btn-primary" id="show" > Hiện </button>
+        </div>
         <table class="table">
             <tr>
                 <th scope="col"> Địa chỉ ví người gửi</th>
@@ -42,9 +45,21 @@
         <h2 class="center-parent">Thông tin giao dịch</h2>
         <table class="table">
             <tr>
+                <th scope="col"> Mã nhân viên người nhận</th>
+                <td scope="row">
+                    <input class="form-control" id="receiverID" >
+                </td>
+            </tr>
+            <tr>
+                <th scope="col"> Tên người nhận</th>
+                <td scope="row">
+                    <input class="form-control" id="receiverName" readonly>
+                </td>
+            </tr>
+            <tr>
                 <th scope="col"> Địa chỉ ví người nhận</th>
                 <td scope="row">
-                    <input class="form-control" id="receiverWallet" >
+                    <input class="form-control" id="receiverWallet" readonly>
                 </td>
             </tr>
             <tr>
@@ -54,9 +69,14 @@
                 </td>
             </tr>
         </table>
+        <div class="center-parent">
+        <a> 
+            <button type="button" class="btn btn-primary" id="verifyExchange" > Kiểm tra giao dịch </button>
+        </a>
         <a> 
             <button type="button" class="btn btn-primary" id="submitExchange" > Thực hiện chuyển </button>
         </a>
+    </div>
     </main>
     <footer>
         <%- include('../partials/footer'); %>

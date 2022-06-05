@@ -383,7 +383,7 @@ $(document).ready(function () {
             "type": "function"
         }
     ];
-    const scAddress = "0x93CA3Bc0B5B0F5ecb2Fbc728ABA52243058142f5";
+    const scAddress = "0x27f3dfc9495116802652b4cdf16ec401a13c2596";
 
     // Khởi tạo biến web3
     const web3 = new Web3(window.ethereum);
@@ -400,32 +400,46 @@ $(document).ready(function () {
     console.log(infura_contract);
 
     var userAccount = "";
-
+    var receiverAccount = "";
     isMetamaskInstalled();
 
-    $("#btnConnectMM").click(function(){
-        connectMM().then((data)=>{
+    $("#show").click(function () {
+        connectMM().then((data) => {
             userAccount = data[0];
             console.log(userAccount);
+            $("#senderWallet").val(userAccount)
+            contractMM.methods.balanceOf(userAccount).call({
+                from: userAccount
+            }).then(function (result) {
+                $("#senderAmount").val(result.toString());
+            });
         }).catch((err) => {
             console.log(err);
+            $("#senderWallet").val(err.message)
         });
     });
-    $("#show").click(function(){
-        connectMM().then((data)=>{
-            userAccount = data[0];
-            console.log(userAccount);
-        }).catch((err) => {
-            console.log(err);
-        });
 
-        contractMM.methods.name().call({
+    $("#verifyExchange").click(function(){
+        $.post("./transfer/searchEmployee",{
+            name:$("#receiverID").val(),
+        }, function(data){
+            if(data.result == 1){
+                $("#receiverWallet").val(data.message.walletAddress)
+                $("#receiverName").val(data.message.name)
+            }else{
+                $.alert(data.message)
+            }
+        })
+    })
+
+    $("#submitExchange").click(function(){
+        amount = $("#tokenAmount").val()
+        receiver = $("#receiverWallet").val()
+        console.log(receiver, amount);
+        contractMM.methods.transfer(userAccount, receiver, amount).send({
             from: userAccount
-        }).then(function(result){
-            $("#bcname").val(result)
-            console.log(result)
-        });
-
+        }).then(function (result) {
+            console.log(result);
+        })
     })
 });
-

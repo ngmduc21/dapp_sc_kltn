@@ -1,9 +1,11 @@
 function isMetamaskInstalled() {
     if (typeof window.ethereum !== 'undefined') {
         console.log('OK. MetaMask is installed!');
+
     }
     else {
         console.log("Attention: MetaMask is uninstalled!")
+        $("#metamaskStatus").val('Chưa kết nối MetaMask')
     }
 }
 
@@ -403,20 +405,14 @@ $(document).ready(function () {
 
     isMetamaskInstalled();
 
-    $("#btnConnectMM").click(function(){
-        connectMM().then((data)=>{
-            userAccount = data[0];
-            console.log(userAccount);
-        }).catch((err) => {
-            console.log(err);
-        });
-    });
     $("#show").click(function(){
         connectMM().then((data)=>{
             userAccount = data[0];
             console.log(userAccount);
+            $("#metamaskStatus").val("Đã kết nối ví MetaMask")
         }).catch((err) => {
             console.log(err);
+            $("#metamaskStatus").val(err.message)
         });
 
         contractMM.methods.name().call({

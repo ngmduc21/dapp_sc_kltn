@@ -7,7 +7,7 @@
     <script src="./scripts/web3.js"></script>
     <script src="./transfer.js"></script>
     <style>
-        #bcname, #bcsymbol, #bcdecimal {width: 300px;}
+        #bcname, #bcsymbol, #bcdecimal, #metamaskStatus {width: 300px;}
         .center-parent {
           text-align: center;
         }
@@ -35,6 +35,12 @@
         </button>
     </div>
         <table class="table">
+            <tr>
+                <th scope="col"> Trạng thái kết nối MetaMask</th>
+                <td scope="row">
+                    <input class="form-control" id="metamaskStatus" readonly>
+                </td>
+            </tr>
             <tr>
                 <th scope="col"> Tên blockchain</th>
                 <td scope="row">
