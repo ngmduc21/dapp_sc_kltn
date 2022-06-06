@@ -41,6 +41,7 @@
               <tr>
                 <td>
                   <select id="leader" class="form-select" aria-describedby="leaderHelp">
+                    <option> Lựa chọn </option>
                     <% if(data.length){ for(var i=0; i< data.length; i++) {%>
                       <option>
                         <%= data[i].name%>
@@ -49,32 +50,82 @@
                   </select>
                 </td>
                 <td>
-                  <input class="form-control" id="leaderEmail" value="ID" readonly>
+                  <input class="form-control" id="leaderID" value="ID" readonly>
                 </td>
               </tr>
             </table>
             <div id="leaderHelp" style="margin-bottom: 10px;" class="form-text">Chọn Leader của dự án</div>
           </div>
-            <div class="form-floating mb-3">
-              <input type="text" id="inputBudget" class="form-control" placeholder="example" aria-describedby="budgetHelp">
-              <label for="inputBudget" class="form-label">Ngân sách Token</label>
-              <div id="budgetHelp" class="form-text">
-              Nhập số lượng Token thưởng của dự án
-              </div>
+          <div class="form-floating mb-3">
+            <input type="text" id="inputBudget" class="form-control" placeholder="example" aria-describedby="budgetHelp">
+            <label for="inputBudget" class="form-label">Ngân sách Token</label>
+            <div id="budgetHelp" class="form-text">
+            Nhập số lượng Token thưởng của dự án
             </div>
-            <div id="numberMemberList" class="mb-3">
-              <label for="inputNumberofMember" class="form-label">Số thành viên</label>
-              <select id="numberOfMember" class="form-select" aria-describedby="numberOfMemberHelp">
-                <% if(data.length){ for(var i=0; i< data.length; i++) {%>
-                  <option>
-                    <%= i+1%>
-                  </option>
-                  <% }} %>
-              </select>
-              <div id="numberOfMemberHelp" class="form-text">
-              Nhập số lượng thành viên của dự án
-              </div>
-            </div>
+          </div>
+          <div class="mb-3">
+            <label for="mem1" class="form-label">Thành viên thứ 1</label>
+            <table>
+              <tr>
+                <td>
+                  <select id="mem1" class="form-select" aria-describedby="leaderHelp">
+                    <option> Lựa chọn </option>
+                    <% if(data.length){ for(var i=0; i< data.length; i++) {%>
+                      <option>
+                        <%= data[i].name%>
+                      </option>
+                      <% }} %>
+                  </select>
+                </td>
+                <td>
+                  <input class="form-control" id="mem1ID" value="ID" readonly>
+                </td>
+              </tr>
+            </table>
+            <div id="leaderHelp" style="margin-bottom: 10px;" class="form-text">Chọn thành viên thứ 2 của dự án</div>
+          </div>
+          <div class="mb-3">
+            <label for="mem2" class="form-label">Thành viên thứ 2</label>
+            <table>
+              <tr>
+                <td>
+                  <select id="mem2" class="form-select" aria-describedby="leaderHelp">
+                    <option> Lựa chọn </option>
+                    <% if(data.length){ for(var i=0; i< data.length; i++) {%>
+                      <option>
+                        <%= data[i].name%>
+                      </option>
+                      <% }} %>
+                  </select>
+                </td>
+                <td>
+                  <input class="form-control" id="mem2ID" value="ID" readonly>
+                </td>
+              </tr>
+            </table>
+            <div id="leaderHelp" style="margin-bottom: 10px;" class="form-text">Chọn thành viên thứ 2 của dự án</div>
+          </div>
+          <div class="mb-3">
+            <label for="mem3" class="form-label">Thành viên thứ 3</label>
+            <table>
+              <tr>
+                <td>
+                  <select id="mem3" class="form-select" aria-describedby="leaderHelp">
+                    <option> Lựa chọn </option>
+                    <% if(data.length){ for(var i=0; i< data.length; i++) {%>
+                      <option>
+                        <%= data[i].name%>
+                      </option>
+                      <% }} %>
+                  </select>
+                </td>
+                <td>
+                  <input class="form-control" id="mem3ID" value="ID" readonly>
+                </td>
+              </tr>
+            </table>
+            <div id="leaderHelp" style="margin-bottom: 10px;" class="form-text">Chọn thành viên thứ 3 của dự án</div>
+          </div>
           <button id="btnCheck" type="button" class="btn btn-primary">Check</button>
           <button id="btnSubmit" type="submit" class="btn btn-primary">Xác nhận</button>
         </form>

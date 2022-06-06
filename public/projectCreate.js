@@ -1,40 +1,106 @@
 $(document).ready(function(){
+
     $("#leader").click(function(){
-        $.post("./project/searchEmployee",{
-            name:$("#leader").val(),
-        }, function(data){
-            if(data.result == 1){
-                $("#leaderEmail").val(data.message._id)
-            }else{
-                $.alert(data.message)
-            }
-        })
+        if($("#leader").val() != "Lựa chọn"){
+            $.post("./project/searchEmployee",{
+                name:$("#leader").val(),
+            }, function(data){
+                if(data.result == 1){
+                    if(data.message._id == $("#mem1ID").val() &&  data.message._id != "ID" ||
+                       data.message._id == $("#mem2ID").val() &&  data.message._id != "ID" || 
+                       data.message._id == $("#mem3ID").val() &&  data.message._id != "ID" ){
+
+                        $.alert("This employee have been chosen!")
+                        $("#leader").val("Lựa chọn")
+                        $("#leaderID").val("ID")
+                    }else{
+                        $("#leaderID").val(data.message._id)
+                    }
+                }else{
+                    $.alert(data.message)
+                }
+            })
+        }else{
+            $("#leaderID").val("ID")
+        }
     })
 
-    var counter = 0
+    $("#mem1").click(function(){
+        if($("#mem1").val() != "Lựa chọn"){
+            $.post("./project/searchEmployee",{
+                name:$("#mem1").val(),
+            }, function(data){
+                if(data.result == 1){
+                    if(data.message._id == $("#leaderID").val() &&  data.message._id != "ID" ||
+                       data.message._id == $("#mem2ID").val() &&  data.message._id != "ID" || 
+                       data.message._id == $("#mem3ID").val() &&  data.message._id != "ID" ){
 
-    $("#numberOfMember").click(function(){
-
-        if(counter != 0){
-            for(var i=1; i<= counter; i++){
-                var div = "div" + i
-                var element = document.getElementById(div)
-                element.remove()
-            }
+                        $.alert("This employee have been chosen!")
+                        $("#mem1").val("Lựa chọn")
+                        $("#mem1ID").val("ID")
+                    }else{
+                        $("#mem1ID").val(data.message._id)
+                    }
+                }else{
+                    $.alert(data.message)
+                }
+            })
+        }else{
+            $("#mem1ID").val("ID")
         }
-        counter = $("#numberOfMember").val()
-
-        for(var i=1; i <= counter; i++){
-            var newInput = $(document.createElement('div')).attr("class", 'form-floating mb-3').attr("id", 'div' + i);
-            
-            newInput.after().html('<input type="text" class="form-control" placeholder="example" aria-describedby="clientHelp" id="mem' + i + '" value="">' + 
-                '<label for="mem' + i + '" class="form-label">Tên thành viên ' + i + ' </label>' +
-                '<div id="mem' + i + 'Help" class="form-text">Cung cấp tên thành viên ' + i + ' của dự án </div>'); 
-
-            newInput.appendTo("#numberMemberList")
-        }
-
     })
+
+    $("#mem2").click(function(){
+        if($("#mem2").val() != "Lựa chọn"){
+            $.post("./project/searchEmployee",{
+                name:$("#mem2").val(),
+            }, function(data){
+                if(data.result == 1){
+                    if(data.message._id == $("#leaderID").val() &&  data.message._id != "ID" ||
+                       data.message._id == $("#mem1ID").val() &&  data.message._id != "ID" || 
+                       data.message._id == $("#mem3ID").val() &&  data.message._id != "ID" ){
+
+                        $.alert("This employee have been chosen!")
+                        $("#mem2").val("Lựa chọn")
+                        $("#mem2ID").val("ID")
+                    }else{
+                        $("#mem2ID").val(data.message._id)
+                    }
+                }else{
+                    $.alert(data.message)
+                }
+            })
+        }else{
+            $("#mem2ID").val("ID")
+        }
+    })
+
+    $("#mem3").click(function(){
+        if($("#mem3").val() != "Lựa chọn"){
+            $.post("./project/searchEmployee",{
+                name:$("#mem3").val(),
+            }, function(data){
+                if(data.result == 1){
+                    if(data.message._id == $("#leaderID").val() &&  data.message._id != "ID" ||
+                       data.message._id == $("#mem1ID").val() &&  data.message._id != "ID" || 
+                       data.message._id == $("#mem2ID").val() &&  data.message._id != "ID" ){
+
+                        $.alert("This employee have been chosen!")
+                        $("#mem3").val("Lựa chọn")
+                        $("#mem3ID").val("ID")
+                    }else{
+                        $("#mem3ID").val(data.message._id)
+                    }
+                }else{
+                    $.alert(data.message)
+                }
+            })
+        }else{
+            $("#mem3ID").val("ID")
+        }
+    })
+
+    
 
     var checked = 0
 
