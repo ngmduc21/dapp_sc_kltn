@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    $("#loading").hide()
     $("#leader").click(function(){
         if($("#leader").val() != "Lựa chọn"){
             $.post("./project/searchEmployee",{
@@ -17,6 +17,7 @@ $(document).ready(function(){
                         $("#leaderID").val(data.message._id)
                     }
                 }else{
+                    $("#leader").val("Lựa chọn")
                     $.alert(data.message)
                 }
             })
@@ -42,6 +43,7 @@ $(document).ready(function(){
                         $("#mem1ID").val(data.message._id)
                     }
                 }else{
+                    $("#mem1").val("Lựa chọn")
                     $.alert(data.message)
                 }
             })
@@ -67,6 +69,7 @@ $(document).ready(function(){
                         $("#mem2ID").val(data.message._id)
                     }
                 }else{
+                    $("#mem2").val("Lựa chọn")
                     $.alert(data.message)
                 }
             })
@@ -92,41 +95,13 @@ $(document).ready(function(){
                         $("#mem3ID").val(data.message._id)
                     }
                 }else{
+                    $("#mem3").val("Lựa chọn")
                     $.alert(data.message)
                 }
             })
         }else{
             $("#mem3ID").val("ID")
         }
-    })
-
-    
-
-    var checked = 0
-
-    $("#btnCheck").click(function(){
-        if(counter){
-            for(var i=1; i<= counter; i++){
-                var mem = "mem" + i
-                var element = document.getElementById(mem)
-                console.log(element)
-
-                $.post("./project/searchEmployee", {
-                    name: $(element).val()
-                }, function(data){
-                    if(data.result == 1){
-                        $.alert('Tìm thấy thành viên trên hệ thống!')
-                        checked = 1   
-                        console.log(checked)                     
-                    }
-                    else{
-                        $.alert('Không tồn tại thành viên trên hệ thống!')
-                        console.log(checked) 
-                    }
-                })
-            }
-        }
-        console.log(checked)
     })
     
     $("#btnSubmit").confirm({
@@ -138,15 +113,22 @@ $(document).ready(function(){
                 btnClass: 'btn-blue',
                 keys: ['enter', 'shift'],
                 action: function(){
-                    if(checked == 1){
+                    
+                    $("#loading").show()
+                    setTimeout(function(){
                         $.post("./project/create", {
                             name:$("#inputName").val(),
                             client:$("#inputClient").val(),
                             leader:$("#leader").val(),
                             budget:$("#inputBudget").val(),
-                            numberOfMembers:$("#numberOfMember").val(),
-                        }, function(data){
-                            if(data.result == 1){
+                            numberOfMembers:"3",
+                            lead:$("#leaderID").val(),
+                            mem1:$("#mem1ID").val(),
+                            mem2:$("#mem2ID").val(),
+                            mem3:$("#mem3ID").val(),
+                        },function(data){
+                            if(data.result == "Success"){
+                                $("#loading").hide()
                                 $.alert('Thao tác thành công! Trở lại sau 3 giây.')
                                 setTimeout(
                                     function() 
@@ -155,13 +137,12 @@ $(document).ready(function(){
                                     }, 3000);             
                             }
                             else{
+                                $("#loading").hide()
                                 $.alert('Thao tác thất bại')
                             }
-                        })  
-                    }else{
-                        $.alert("Chưa kiểm tra thành viên")
-                    }
-                      
+                        })    
+                    }, 1000)
+                    
                 }
             },
             

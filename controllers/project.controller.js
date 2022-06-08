@@ -45,31 +45,20 @@ module.exports.getDetail = (req, res) => {
     console.log('Get detail of project:',id)
     projectModel.findOne({_id: id}, (error, project) => {
         if (!error && project != null){
-            assignedModel.findOne({_id: project.assigned}, (error2, assigned) => {
-                if(!error2 && assigned != null){
-                    if(assigned.employeeID.length){
-                        for(var i=0; i<assigned.employeeID.length; i++){
-                            employeeModel.findOne({_id: assigned.employeeID[i]}, (error3, employee) => {
-                                if(!error3 && employee != null){
-                                    member.push(employee.name)
-                                    count++
-                                }
-                                if(count == assigned.employeeID.length){
-                                    res.render('project/detail', {
-                                        data: project, member: member
-                                    })
-                                }
-                            })
-                        }
-                    }
-                }
+            res.render('project/detail', {
+                data: project, member: member
             })
-            
         }
         else {
             console.log('Project id: Unable to get project data!')
         }
     })
+}
+
+module.exports.details = async(req, res) => {
+    var id = req.params.id
+    console.log('Get detail of project:',id)
+    
 }
 
 // Finish a project
@@ -93,13 +82,13 @@ module.exports.finish = (req, res) => {
 module.exports.postcreate =(req, res) => {
     if(!req.body.name || !req.body.client || !req.body.budget) {
         console.log("Not enough required information!")
-        res.json({result: 0, message: "Not enough required information!"})
+        res.json({result: "Error", message: "Not enough required information!"})
     } else {
         var newProject = new projectModel({
             name: req.body.name,
             client: req.body.client,
             leader: req.body.leader,
-            numberOfMembers: req.body.numberOfMembers,
+            numberOfMembers: 3,
             budget: req.body.budget,
             assigned: "none",
             date: Date.now(),
@@ -108,28 +97,29 @@ module.exports.postcreate =(req, res) => {
         newProject.save(function(error){
             if(error){
                 console.log(error)
-                res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
+                res.json({result: "Error", message: 'Got error when try to save information to MongoDB!'});
             }else {
                 console.log("Đã tạo thành công dự án", newProject.name)
-                res.json({result:1, message: newProject._id})
+                //res.json({result: "Create", message: newProject._id})
                 var newAssigned = new assignedModel({
                     projectID: newProject._id,
                     projectName: newProject.name,
-                    employeeID: [],
+                    employeeID: [req.body.lead, req.body.mem1, req.body.mem2, req.body.mem3],
                     performance: []
                 })
                 newAssigned.save(function(error2){
                     if(error2){
                         console.log(error2)
-                        //res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
+                        console.log("Danh sach thanh vien", newAssigned.employeeID)
+                        res.json({result: "Error", message: 'Got error when try to save information to MongoDB!'});
                     }else {
-                        console.log("Đã tạo thành công assign mới cho dự án", newProject.name)
+                        console.log("Đã tạo thành công assigned mới cho dự án", newProject.name)
                         projectModel.updateOne({_id: newProject._id}, {$set: {assigned: newAssigned._id}}, function(error3, res){
                             if(!error3){
                                 console.log("Đã cập nhật assigned id cho project", newProject.name)
                             }
                         })
-                        //res.json({result:1, message: newProject._id})
+                        res.json({result: "Success", message: newProject._id})
                     } 
                 })
             }
@@ -168,9 +158,18 @@ module.exports.delete =(req, res) => {
     finishedProjectID = id
     console.log('Deleting project:', id)
     projectModel.deleteOne({_id: id}, (error, project) => {
-        if(!error){
+        if(!error && project != null ){
             console.log("Deleted project:", id)
-            res.json({result:1, message: 'Deleted!'});
+            
+            assignedModel.deleteOne({projectID: id}, (error2, assigned) => {
+                if( !error2 && assigned != null){
+                    console.log("Deleted assigned of project:", id)
+                    res.json({result:1, message: 'Deleted!'});
+                }else{
+                    console.log("Failed to delete assigned of project:", id)
+                    res.json({result:0, message: 'Failed!'});
+                }
+            })
         }else{
             console.log("Failed to delete project:", id)
             res.json({result:0, message: 'Failed!'});
