@@ -7,7 +7,7 @@
     <script src="./scripts/web3.js"></script>
     <script src="./exchange.js"></script>
     <style>
-        #receiverWallet, #tokenAmount, #senderWallet, #senderAmount, #rewardType {width: 600px;}
+        #receiverWallet, #tokenAmount, #senderWallet, #senderAmount, #rewardType, #rewardAmount {width: 600px;}
         .center-parent {
           text-align: center;
         }
@@ -20,7 +20,7 @@
     <main>
         <%- include('../partials/transfer/sidenav'); %>
         <h1 class="center-parent">
-            Chuyển token
+            Đổi thưởng
         </h1>
         <br>
         <h2 class="center-parent">Thông tin ví nhân viên</h2>
@@ -47,13 +47,24 @@
                           <option id="cash">
                             Tiền mặt
                           </option>
+                          <option id="lunch">
+                            Bữa trưa
+                          </option>
                       </select>
                 </td>
             </tr>
+            <th scope="col"> Số lượng muốn chuyển đổi (đơn vị)</th>
+                <td scope="row">
+                    <input class="form-control" id="rewardAmount">
+                </td>
             </table>
-        <a> 
-            <button type="button" class="btn btn-primary" id="submitReward" > Thực hiện đổi thưởng </button>
-        </a>
+            <div class="center-parent">
+                <a> 
+                    <button type="button" class="btn btn-primary" id="show" > Kiểm tra giao dịch </button>
+                </a>
+                <a> 
+                    <button type="button" class="btn btn-primary" id="submitReward" > Thực hiện đổi thưởng </button>
+                </a>
     </main>
     <footer>
         <%- include('../partials/footer'); %>
