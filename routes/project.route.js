@@ -14,7 +14,9 @@ router.get('/:id', controller.getDetail)
 
 router.get('/finish/:id', controller.finish)
 
-router.get('/addMembers', controller.addMembers)
+router.get('/createTask/:id', controller.createTask)
+
+router.get("/task/:id", controller.taskManager)
 
 router.post('/addToProject', controller.addToProject)
 
@@ -26,6 +28,6 @@ router.post('/delete', controller.delete)
 
 router.post('/searchEmployee', controller.searchEmployee)
 
-router.get("/task/:id", controller.taskManager)
+router.post('/createTask', controller.postTask)
 
 module.exports = router

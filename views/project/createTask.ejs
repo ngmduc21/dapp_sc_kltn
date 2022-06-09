@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+    <title>Tạo task mới</title>
+    <base href="http://localhost:3000" />
+    <script src="./taskCreate.js"></script>
+    <style>
+      #project-create-form {margin: 20px; }
+      #leader, #leaderEmail, #numberOfMember {width: 200px; height: auto; margin-bottom: 5px; }
+      #listMember {margin-bottom: 10px;}
+      #numberOfMemberHelp {margin-bottom: 20px;}
+      #loading {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+      }
+      #loading-image {
+        z-index: 100;
+      }
+    </style>
+</head>
+
+<body>
+  <header>
+    <%- include('../partials/header'); %>
+  </header>
+  <main>
+    <div id="loading">
+      <img id="loading-image" src="https://plecevo.eu/i/simple_loading.gif" alt="Loading..." />
+    </div>
+    <div id="project-create-form">
+      <h1>Tạo công việc mới</h1>
+      <form>
+            <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="id" value="<%=id%>" readonly placeholder="example" aria-describedby="nameHelp">
+            <label for="name" class="form-label">Dự án</label>
+            <div id="nameHelp" class="form-text">Dự án đang được thêm task</div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" placeholder="example" aria-describedby="nameHelp">
+            <label for="name" class="form-label">Tên công việc</label>
+            <div id="nameHelp" class="form-text">Lựa chọn tên cho công việc</div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" id="point" class="form-control" placeholder="example" aria-describedby="clientHelp">
+            <label for="point" class="form-label">Điểm thưởng</label>
+            <div id="clientHelp" class="form-text">
+            Cung cấp điểm thưởng của công việc
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="member" class="form-label">Thành viên</label>
+            <table>
+              <tr>
+                <td>
+                  <select id="member" class="form-select" aria-describedby="leaderHelp">
+                    <option> Lựa chọn </option>
+                    <% if(data.length){ for(var i=1; i< data.length; i++) {%>
+                      <option>
+                        <%= data[i]%>
+                      </option>
+                      <% }} %>
+                  </select>
+                </td>
+                <td>
+                  <input class="form-control" id="memberID" value="ID" readonly>
+                </td>
+              </tr>
+            </table>
+            <div id="leaderHelp" style="margin-bottom: 10px;" class="form-text">Chọn thành viên phụ trách</div>
+          </div>
+          
+          <button id="btnSubmit" type="submit" class="btn btn-primary">Xác nhận</button>
+        </form>
+  </div>
+    
+  </main>
+</body>
+</html>

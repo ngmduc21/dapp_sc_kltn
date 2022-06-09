@@ -4,9 +4,8 @@ var employeeModel = require("../models/employee.model");
 var projectModel = require('../models/project.model')
 var finishedProjectModel = require('../models/finishedProject.model')
 var assignedModel = require('../models/assigned.model')
+var taskModel = require('../models/task.model')
 
-var finishedProjectID = ""
-var modifyProjectID = ""
 module.exports.index = (req, res) => {
     res.render('project/index')
 }
@@ -45,9 +44,11 @@ async function getEmployee(list){
         }
     return member
 }
-    
 
-
+async function getProject(id){
+    var project = await projectModel.findOne({_id: id})
+    return project.name
+}
 // Get details of each project
 module.exports.getDetail = async(req, res) => {
     var id = req.params.id
@@ -187,21 +188,49 @@ module.exports.searchEmployee = (req, res) => {
     }
 }
 
-module.exports.addMembers = (req, res) => {
-    if(!req.body.id){
-        res.json({result: 0, message: "Add member to assigned: Not enough required information!"})
-    }else{
-        employeeModel.findOne({name: req.body.employee}, (error, employee) => {
-            if (!error && employee != null){
-                console.log("Found employee")
-                assignedModel.updateOne({projectID: req.body.id}, {$set: {employeeID: employee._id}}, function(error, assigned){
-                    if(!error){
-                        console.log("Đã cập nhật assigned cho project", assigned.projectName)
-                    }
-                })
+
+
+module.exports.createTask = async(req, res) => {
+    var id = req.params.id
+    var list = []
+    console.log('Add tasks for project:',id)
+    projectModel.findOne({_id: id}, async(error, project) => {
+        if (!error && project != null){
+            list = project.listMembers
+            var member = await getEmployee(list)
+            res.render('project/createTask', {
+                data: member, id: id
+            })
+        }
+        else {
+            console.log('Project id: Unable to get project data!')
+        }
+    })
+    
+}
+
+module.exports.postTask = (req, res) => {
+    if(!req.body.name || !req.body.point || !req.body.project || !req.body.member) {
+        console.log("Not enough required information!")
+        res.json({result: 0, message: "Not enough required information!"})
+    } else {
+        var newTask = new taskModel({
+            project: req.body.project,
+            employee: req.body.member,
+            name: req.body.name,
+            point: req.body.point,
+            memName: req.body.memName,
+        })
+
+        newTask.save(function(error){
+            if(error){
+                console.log(error)
+                res.json({result: 0, message: 'Got error when try to save information to MongoDB!'});
+            }else {
+                console.log("Đã tạo thành công task", newTask.name)
+                res.json({result: 1, message: newTask.name})
             }
         })
-    
     }
 }
 
@@ -209,10 +238,10 @@ module.exports.taskManager = (req, res) => {
     var id = req.params.id
     modifyProjectID = id
     console.log('Modifying project:',id)
-    projectModel.findOne({_id: id}, (error, project) => {
+    taskModel.find({project: id}, (error, task) => {
         if (!error){
             res.render('project/task', {
-                data: project,
+                data: task, id: id
             })
         }
         else {
