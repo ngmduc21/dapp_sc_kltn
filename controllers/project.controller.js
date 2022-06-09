@@ -37,14 +37,26 @@ module.exports.list = (req, res) => {
     })
 }
 
-// Get details of each project
-module.exports.getDetail = (req, res) => {
-    var id = req.params.id
+async function getEmployee(list){
     var member = []
-    var count=0
+    for(var i=0; i<list.length;i++){
+        var mem = await employeeModel.findOne({_id: list[i]})
+        member.push(mem.name)
+        }
+    return member
+}
+    
+
+
+// Get details of each project
+module.exports.getDetail = async(req, res) => {
+    var id = req.params.id
+    var list = []
     console.log('Get detail of project:',id)
-    projectModel.findOne({_id: id}, (error, project) => {
+    projectModel.findOne({_id: id}, async(error, project) => {
         if (!error && project != null){
+            list = project.listMembers
+            var member = await getEmployee(list)
             res.render('project/detail', {
                 data: project, member: member
             })
@@ -53,12 +65,6 @@ module.exports.getDetail = (req, res) => {
             console.log('Project id: Unable to get project data!')
         }
     })
-}
-
-module.exports.details = async(req, res) => {
-    var id = req.params.id
-    console.log('Get detail of project:',id)
-    
 }
 
 // Finish a project
@@ -90,38 +96,17 @@ module.exports.postcreate =(req, res) => {
             leader: req.body.leader,
             numberOfMembers: 3,
             budget: req.body.budget,
-            assigned: "none",
+            listMembers: [req.body.lead, req.body.mem1, req.body.mem2, req.body.mem3],
             date: Date.now(),
         })
 
         newProject.save(function(error){
             if(error){
                 console.log(error)
-                res.json({result: "Error", message: 'Got error when try to save information to MongoDB!'});
+                res.json({result: 0, message: 'Got error when try to save information to MongoDB!'});
             }else {
                 console.log("Đã tạo thành công dự án", newProject.name)
-                //res.json({result: "Create", message: newProject._id})
-                var newAssigned = new assignedModel({
-                    projectID: newProject._id,
-                    projectName: newProject.name,
-                    employeeID: [req.body.lead, req.body.mem1, req.body.mem2, req.body.mem3],
-                    performance: []
-                })
-                newAssigned.save(function(error2){
-                    if(error2){
-                        console.log(error2)
-                        console.log("Danh sach thanh vien", newAssigned.employeeID)
-                        res.json({result: "Error", message: 'Got error when try to save information to MongoDB!'});
-                    }else {
-                        console.log("Đã tạo thành công assigned mới cho dự án", newProject.name)
-                        projectModel.updateOne({_id: newProject._id}, {$set: {assigned: newAssigned._id}}, function(error3, res){
-                            if(!error3){
-                                console.log("Đã cập nhật assigned id cho project", newProject.name)
-                            }
-                        })
-                        res.json({result: "Success", message: newProject._id})
-                    } 
-                })
+                res.json({result: 1, message: newProject.name})
             }
         })
     }
@@ -160,16 +145,7 @@ module.exports.delete =(req, res) => {
     projectModel.deleteOne({_id: id}, (error, project) => {
         if(!error && project != null ){
             console.log("Deleted project:", id)
-            
-            assignedModel.deleteOne({projectID: id}, (error2, assigned) => {
-                if( !error2 && assigned != null){
-                    console.log("Deleted assigned of project:", id)
-                    res.json({result:1, message: 'Deleted!'});
-                }else{
-                    console.log("Failed to delete assigned of project:", id)
-                    res.json({result:0, message: 'Failed!'});
-                }
-            })
+            res.json({result:1, message: 'Success'});
         }else{
             console.log("Failed to delete project:", id)
             res.json({result:0, message: 'Failed!'});

@@ -127,9 +127,9 @@ $(document).ready(function(){
                             mem2:$("#mem2ID").val(),
                             mem3:$("#mem3ID").val(),
                         },function(data){
-                            if(data.result == "Success"){
+                            if(data.result == 1){
                                 $("#loading").hide()
-                                $.alert('Thao tác thành công! Trở lại sau 3 giây.')
+                                $.alert('Khởi tạo thành công dự án ' + data.message + '! Chuyển hướng sau 3 giây.')
                                 setTimeout(
                                     function() 
                                     {
