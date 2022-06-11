@@ -5,7 +5,7 @@ const projectSchema = new mongoose.Schema({
     client: String,
     leader: String,
     numberOfMembers: String,
-    budget: String,
+    budget: Number,
     listMembers: Array,
     date: Date,
 })
