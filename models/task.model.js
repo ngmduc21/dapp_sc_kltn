@@ -4,7 +4,7 @@ const taskSchema = new mongoose.Schema({
     project: String,
     employee: String,
     name: String,
-    point: String,
+    point: Number,
     memName: String,
 })
 
