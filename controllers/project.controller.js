@@ -47,8 +47,9 @@ async function getEmployee(list){
 
 async function getProject(id){
     var project = await projectModel.findOne({_id: id})
-    return project.name
+    return project
 }
+
 // Get details of each project
 module.exports.getDetail = async(req, res) => {
     var id = req.params.id
@@ -69,19 +70,40 @@ module.exports.getDetail = async(req, res) => {
 }
 
 // Finish a project
-module.exports.finish = (req, res) => {
+module.exports.finish = async(req, res) => {
     var id = req.params.id
-    finishedProjectID = id
     console.log('Finishing project:',id)
-    projectModel.findOne({_id: id}, (error, project) => {
-        if (!error){
-            res.render('project/finish', {
-                data: project,
-            })
+    var project = await getProject(id)
+    var task = await taskModel.find({project: id})
+    var taskName1 = [], taskName2 = [], taskName3 = []
+    var point1 = 0, point2  = 0, point3  = 0, name1, name2, name3
+    name1 = task[0].memName
+    for(var i=0; i<task.length; i++){
+        if(task[i].memName != name1 && name2 == null){
+            name2 = task[i].memName
+        }else if(task[i].memName != name1 && task[i].memName != name2 && name3 == null){
+            name3 = task[i].memName
         }
-        else {
-            console.log('Project id: Unable to get project data!')
+    }
+    console.log(name1, name2, name3)
+    for(var i=0; i<task.length; i++){
+        if(task[i].memName == name1){
+            point1 += Number(task[i].point)
+            taskName1.push(task[i].name)
+        }else if(task[i].memName == name2){
+            point2 += Number(task[i].point)
+            taskName2.push(task[i].name)
+        }else if(task[i].memName == name3){
+            point3 += Number(task[i].point)
+            taskName3.push(task[i].name)
         }
+    }
+    console.log(taskName1, taskName2, taskName3)
+    console.log(point1, point2, point3)
+    res.render('project/finish', {
+        data: project, name1: name1, name2: name2, name3: name3, point1: point1,
+        point2: point2, point3: point3, taskName1: taskName1, taskName2: taskName2,
+        taskName3: taskName3,
     })
 }
 

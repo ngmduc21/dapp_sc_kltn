@@ -16,6 +16,9 @@
     <%- include('../partials/header'); %>
   </header>
 <main>
+  <a href="/project/<%=id%>">
+    <button class="btn btn-primary">Trở lại</button>
+  </a>
   <h1> Quản lý công việc</h1>
   <table id="infoTable" class="table">
     <tr>
@@ -33,7 +36,7 @@
         <thead>
             <tr>
                 <th scope="col">STT</th>
-                <th scope="col">Tên task</th>
+                <th scope="col">Tên</th>
                 <th scope="col">Điểm</th>
                 <th scope="col">Thành viên</th>
                 <th scope="col"></th>
@@ -47,12 +50,7 @@
                 <th scope="row"><%= (i+1) %></th>
                 <td><%= data[i].name%></td>
                 <td><%= data[i].point%></td>
-                <td><%= data[i].employee%></td>
-                <td>
-                    <a href="/project/<%= data[i]._id%>" > 
-                        <button class="btn btn-primary">Chi tiết</button>
-                    </a>
-                </td>
+                <td><%= data[i].memName%></td>
             </tr>
             <% }
                     
