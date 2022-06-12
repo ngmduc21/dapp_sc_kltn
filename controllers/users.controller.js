@@ -42,7 +42,7 @@ module.exports.postCreate = (req, res) => {
         var newEmployee = new employeeModel({
             email: req.body.email,
             name: req.body.name,
-            employeeID: '',
+            employeeID: req.body.employeeID,
             phone: req.body.phone,
             assigned: [],
             walletAddress: req.body.wallet,

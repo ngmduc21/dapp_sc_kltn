@@ -12,10 +12,6 @@ module.exports.reward = (req, res) => {
     res.render("transfer/reward");
 }
 
-module.exports.test = (req, res) => {
-    res.render("transfer/indextest");
-}
-
 module.exports.searchEmployee = (req, res) => {
     if(!req.body.name){
         res.json({result: 0, message: "Find employee: Not enough required information!"})
