@@ -2,7 +2,6 @@
 require('dotenv').config()
 
 var express = require('express');
-const verifyToken = require('./middleware/auth')
 //const authServer = require('./authServer')
 const res = require('express/lib/response');
 var app = express();
@@ -60,6 +59,4 @@ app.listen(port, function () {
     console.log("Server listening on port", port)
 });
 
-// authServer.listen(4000, () => {
-//     console.log("Server 1 is up and running on port 4000");
 // })

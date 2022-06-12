@@ -4,9 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "appserver": "nodemon server",
-    "authserver": "nodemon authServer",
-    "start": "concurrently \"npm:appserver\" \"npm:authserver\""
+    "start": "node server"
   },
   "author": "",
   "license": "ISC",
