@@ -11,6 +11,7 @@ var dashboardRoute = require('./routes/dashboard.route.js')
 var userRoute = require('./routes/users.route')
 var projectRoute = require('./routes/project.route')
 var transferRoute = require('./routes/transfer.route')
+var adminRoute = require('./routes/admin.route.js')
 
 // Khai báo đường dẫn thư mục public (để rút gọn mỗi khi gọi)
 app.use(express.static('public'));
@@ -52,6 +53,8 @@ app.use('/users', userRoute);
 app.use('/project', projectRoute);
 
 app.use('/transfer', transferRoute)
+
+app.use('/admin', adminRoute)
 
 // Server listen trên port
 var port = 3000

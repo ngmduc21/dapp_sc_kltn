@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="http://localhost:3000" />
+    <%- include('../partials/head'); %>
+    <title>Quản trị Hợp đồng thông minh</title>
+    <script src="./scripts/web3.js"></script>
+    <script src="./adminSC.js"></script>
+    <style>
+        #bcname, #scowner, #metamaskStatus, #sctotalsupply, #tokenAmount {width: 300px;}
+        .center-parent {
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header'); %>
+    </header>
+    <main>
+        <h1 class="center-parent" >
+            Quản trị Hợp đồng thông minh
+        </h1>
+        <div class="center-parent">
+        <br>
+        <h2>Thông tin hệ thống</h2>
+        <button type="button" class="btn btn-primary" id="showsc">
+            Hiện
+        </button>
+    </div>
+        <table class="table">
+            <tr>
+                <th scope="col"> Trạng thái kết nối MetaMask</th>
+                <td scope="row">
+                    <input class="form-control" id="metamaskStatus" readonly>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col"> Tên Smart Contract</th>
+                <td scope="row">
+                    <input class="form-control" id="bcname" readonly>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col"> Smart Contract Owner</th>
+                <td scope="row">
+                    <input class="form-control" id="scowner" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col"> Tổng PMC Token của Smart Contract </th>
+                <td scope="row">
+                    <input class="form-control" id="sctotalsupply" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col"> Số lượng Token muốn thay đổi </th>
+                <td scope="row">
+                    <input class="form-control" id="tokenAmount" value="" >
+                </td>
+            </tr>
+        </table>
+        <div class="center-parent">
+        <a id="mintbtn"> 
+            <button class="btn btn-primary" > Mint token </button>
+        </a>
+        <a id="burnbtn"> 
+            <button class="btn btn-primary" > Burn token </button>
+        </a>
+        </div>
+    </main>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+</body>
+</html>
