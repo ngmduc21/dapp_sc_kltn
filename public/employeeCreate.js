@@ -15,6 +15,7 @@ $(document).ready(function(){
                     $.post("./users/create", {
                         email:$("#inputEmail").val(),
                         name:$("#inputName").val(),
+                        employeeID:$("#inputID").val(),
                         wallet:$("#inputWallet").val(),
                         phone:$("#inputPhone").val(),
                     }, function(data){
