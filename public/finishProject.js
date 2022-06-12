@@ -14,7 +14,7 @@ async function connectMM(){
 }
 
 $(document).ready(function(){
-
+    $("#loading").hide()
     // Khai báo abi và địa chỉ của SC trên Network
     const abi = [
         {
