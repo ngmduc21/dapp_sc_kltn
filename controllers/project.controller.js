@@ -24,9 +24,22 @@ module.exports.create = (req, res) => {
 
 // Listing project
 module.exports.list = (req, res) => {
-    projectModel.find((error, project) => {
+    projectModel.find({status: "In Progress"},(error, project) => {
         if (!error){
             res.render('project/list', {
+                data: project
+            })
+        }
+        else {
+            console.log('Project list: Unable to fetch data!')
+        }
+    })
+}
+
+module.exports.flist = (req, res) => {
+    projectModel.find({status: "Finished"},(error, project) => {
+        if (!error){
+            res.render('project/flist', {
                 data: project
             })
         }
@@ -59,8 +72,33 @@ module.exports.getDetail = async(req, res) => {
         if (!error && project != null){
             list = project.listMembers
             var member = await getEmployee(list)
+            var task = await getTask(id)
             res.render('project/detail', {
-                data: project, member: member
+                data: project, member: member, task: task
+            })
+        }
+        else {
+            console.log('Project id: Unable to get project data!')
+        }
+    })
+}
+
+async function getTask(id){
+    var task = taskModel.find({project: id})
+    return task
+}
+
+module.exports.getFdetail = async(req, res) => {
+    var id = req.params.id
+    var list = []
+    console.log('Get detail of project:',id)
+    projectModel.findOne({_id: id}, async(error, project) => {
+        if (!error && project != null){
+            list = project.listMembers
+            var member = await getEmployee(list)
+            var task = await getTask(id)
+            res.render('project/fdetail', {
+                data: project, member: member, task: task
             })
         }
         else {
@@ -75,14 +113,17 @@ module.exports.finish = async(req, res) => {
     console.log('Finishing project:',id)
     var project = await getProject(id)
     var task = await taskModel.find({project: id})
-    var taskName1 = [], taskName2 = [], taskName3 = []
+    var taskName1 = [], taskName2 = [], taskName3 = [], id = []
     var point1 = 0, point2  = 0, point3  = 0, name1, name2, name3
     name1 = task[0].memName
+    id[0] = task[0].employee
     for(var i=0; i<task.length; i++){
         if(task[i].memName != name1 && name2 == null){
             name2 = task[i].memName
+            id[1] = task[i].employee
         }else if(task[i].memName != name1 && task[i].memName != name2 && name3 == null){
             name3 = task[i].memName
+            id[2] = task[i].employee
         }
     }
     console.log(name1, name2, name3)
@@ -103,7 +144,7 @@ module.exports.finish = async(req, res) => {
     res.render('project/finish', {
         data: project, name1: name1, name2: name2, name3: name3, point1: point1,
         point2: point2, point3: point3, taskName1: taskName1, taskName2: taskName2,
-        taskName3: taskName3,
+        taskName3: taskName3, id: id
     })
 }
 
@@ -121,10 +162,11 @@ module.exports.postcreate =(req, res) => {
             budget: req.body.budget,
             listMembers: [req.body.lead, req.body.mem1, req.body.mem2, req.body.mem3],
             date: Date.now(),
+            status: "In Progress"
         })
 
         newProject.save(function(error){
-            if(error){
+            if(!error){
                 console.log(error)
                 res.json({result: 0, message: 'Got error when try to save information to MongoDB!'});
             }else {
@@ -137,37 +179,31 @@ module.exports.postcreate =(req, res) => {
 
 // Process finish project
 module.exports.postFinish = (req, res) => {
-    console.log(req.body)
-    if(!req.body.name || !req.body.client || !req.body.budget) {
-        console.log("Not enough required information!")
-        //res.json({result: 0, message: "Not enough required information!"})
+    if(!req.body.mem1 || !req.body.project) {
+        console.log("Unable to finish: Project does not have tasks")
+        res.json({result: 0, message: "Project does not have tasks"})
     } else {
-        var newFinishedProject = new finishedProjectModel({
-            name: req.body.name,
-            client: req.body.client,
-            budget: req.body.budget,
-        })
-
-        newFinishedProject.save(function(error){
-            if(error){
-                console.log(error)
-                //res.json({result:0, message: 'Got error when try to save information to MongoDB!'});
-            }else {
-                console.log(newProject)
-                //res.json({result:1, message: newFinishedProject});
+        projectModel.findByIdAndUpdate({_id: req.body.project}, {$set: {status: "Finished"}}, (error, project) => {
+            if(!error){
+                console.log("Finished project: ", project.name)
+                res.json({result: 1, message: project.name})
+            }
+            else{
+                console.log("Unable to finish project")
+                res.json({result: 0, message: "Unable to finish project"})
             }
         })
+
     }
-    res.redirect("/project")
 } 
 
 module.exports.delete =(req, res) => {
     var id = req.body.id
-    finishedProjectID = id
     console.log('Deleting project:', id)
-    projectModel.deleteOne({_id: id}, (error, project) => {
+    projectModel.deleteOne({_id: id}, async(error, project) => {
         if(!error && project != null ){
             console.log("Deleted project:", id)
+            await taskModel.deleteMany({project: id})
             res.json({result:1, message: 'Success'});
         }else{
             console.log("Failed to delete project:", id)
@@ -256,22 +292,3 @@ module.exports.postTask = (req, res) => {
     }
 }
 
-module.exports.taskManager = (req, res) => {
-    var id = req.params.id
-    modifyProjectID = id
-    console.log('Modifying project:',id)
-    taskModel.find({project: id}, (error, task) => {
-        if (!error){
-            res.render('project/task', {
-                data: task, id: id
-            })
-        }
-        else {
-            console.log('Project id: Unable to get project data!')
-        }
-    })
-}
-
-module.exports.addToProject = (req, res) => {
-    console.log(req.body)
-}

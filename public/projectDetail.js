@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $("#loading").hide()
+    $("#projectID").hide()
     $("#btnDelete").confirm({
         title: 'Xác nhận',
         content: 'Bạn chắc chắn muốn xoá dự án này ?',

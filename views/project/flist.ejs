@@ -7,7 +7,7 @@
 </style>
 <head>
     <%- include('../partials/head'); %>
-    <title>Danh sách dự án</title>
+    <title>Dự án đã hoàn thành</title>
 </head>
 <body>
     <header>
@@ -15,16 +15,16 @@
     </header>
     <main>
         <%- include('../partials/project/sidenav'); %>
-        <h1 class="center-parent"> Danh sách dự án</h1>
+        <h1 class="center-parent"> Dự án đã hoàn thành</h1>
         <div class="center-parent">
             <a href="/project/create">
                 <button type="button" class="btn btn-primary">
                     Tạo dự án mới
                 </button>
             </a>
-            <a href="/project/flist">
+            <a href="/project/list">
                 <button type="button" class="btn btn-primary">
-                    Dự án đã hoàn thành
+                    Dự án đang thực hiện
                 </button>
             </a>
         </div>
@@ -52,7 +52,7 @@
                     <td><%= data[i].numberOfMembers%></td>
                     <td><%= data[i].budget%></td>
                     <td>
-                        <a href="/project/<%= data[i]._id%>" > 
+                        <a href="/project/finished/<%= data[i]._id%>" > 
                             <button class="btn btn-primary">Chi tiết</button>
                         </a>
                     </td>
@@ -67,7 +67,7 @@
                 
                 </tbody>
             </table>
-        </div>
+            
     </main>
     <footer>
         <%- include('../partials/footer'); %>

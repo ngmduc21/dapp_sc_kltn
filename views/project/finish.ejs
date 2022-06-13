@@ -38,7 +38,14 @@
         </a>
         <div id="loading">
             <img id="loading-image" src="https://plecevo.eu/i/simple_loading.gif" alt="Loading..." />
-          </div>
+        </div>
+        <input class="form-control" id="projectID" value="<%= data._id%>" readonly>
+        <input class="form-control" id="mem1" value="<%= id[0]%>" readonly>
+        <input class="form-control" id="mem2" value="<%= id[1]%>" readonly>
+        <input class="form-control" id="mem3" value="<%= id[2]%>" readonly>
+        <input class="form-control" id="reward1" value="<%= point1%>" readonly>
+        <input class="form-control" id="reward2" value="<%= point2%>" readonly>
+        <input class="form-control" id="reward3" value="<%= point3%>" readonly>
         <div id="main">
             <h1> Hoàn thành dự án </h1> 
             <div>
@@ -50,7 +57,7 @@
                     <tr>
                         <th scope="col"> ID </th>
                         <td scope="row">
-                            <input class="form-control" id="projectID" value="<%= data._id%>" readonly>
+                            <%= data._id%>
                         </td>
                     </tr>
                     <tr>
@@ -108,11 +115,7 @@
                     </tbody>
                 </table>
             </div>
-            <div>
-                <button type="button" class="btn btn-primary" id="btnFinishProject">
-                    Kết thúc và trả thưởng
-                </button>
-            </div>
+            <button id="btnFinish" type="submit" class="btn btn-primary" > Kết thúc và trả thưởng </button>
         </div>
     </main>
     <footer>

@@ -5,6 +5,7 @@
   <%- include('../partials/head'); %>
     <title>Quản lý công việc</title>
     <base href="http://localhost:3000" />
+    <script src="./task.js"></script>
     <style>
         #detail {margin: 20px;}
         #projectID, #leader, #numberMember {width: auto;}
@@ -19,12 +20,13 @@
   <a href="/project/<%=id%>">
     <button class="btn btn-primary">Trở lại</button>
   </a>
+  <input class="form-control" id="projectID" value="<%= id%>" readonly>
   <h1> Quản lý công việc</h1>
   <table id="infoTable" class="table">
     <tr>
         <th scope="col"> ID dự án </th>
         <td scope="row">
-            <input class="form-control" id="projectID" value="<%= id%>" readonly>
+          <%= id%>
         </td>
     </tr>
   </table>

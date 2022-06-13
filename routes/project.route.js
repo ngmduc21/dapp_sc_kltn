@@ -8,17 +8,17 @@ router.get('/', controller.list)
 
 router.get('/list', controller.list)
 
+router.get('/flist', controller.flist)
+
 router.get('/create', controller.createList)
 
 router.get('/:id', controller.getDetail)
 
+router.get('/finished/:id', controller.getFdetail)
+
 router.get('/finish/:id', controller.finish)
 
 router.get('/createTask/:id', controller.createTask)
-
-router.get("/task/:id", controller.taskManager)
-
-router.post('/addToProject', controller.addToProject)
 
 router.post('/create', controller.postcreate)
 

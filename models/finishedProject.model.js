@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 
-const finishedProjectSchema = new mongoose.Schema({
+const fprojectSchema = new mongoose.Schema({
     name: String,
     client: String,
     leader: String,
     numberOfMembers: String,
-    budget: String,
+    budget: Number,
     listMembers: Array,
+    date: Date,
 })
 
-module.exports = mongoose.model('finishedProject', finishedProjectSchema)
+module.exports = mongoose.model('fproject', fprojectSchema)

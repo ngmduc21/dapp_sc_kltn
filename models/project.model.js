@@ -8,6 +8,7 @@ const projectSchema = new mongoose.Schema({
     budget: Number,
     listMembers: Array,
     date: Date,
+    status: String,
 })
 
 module.exports = mongoose.model('project', projectSchema)

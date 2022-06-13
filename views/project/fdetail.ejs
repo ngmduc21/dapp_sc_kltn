@@ -93,7 +93,8 @@
                     </td>
                 </tr>
             </table>
-            <h2> Danh sách task</h2>
+        </div>
+        <h2> Danh sách task</h2>
             <div>
                 <br>
                 <table class="table">
@@ -126,21 +127,6 @@
                     </tbody>
                 </table>
             </div>
-            <a href="/project/createTask/<%= data._id%>">
-                <button id="addTask" class="btn btn-primary" > Thêm task </button>
-            </a>
-            <a href="/project/finish/<%= data._id%>">
-                <button type="button" class="btn btn-primary">
-                    Hoàn thành
-                </button>
-            </a>
-            
-            <button id="btnDelete" type="button" class="btn btn-primary">
-                Xoá
-            </button>
-                
-            
-        </div>
     </main>
     <footer>
         <%- include('../partials/footer'); %>
