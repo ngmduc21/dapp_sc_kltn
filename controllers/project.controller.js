@@ -1,13 +1,18 @@
-const res = require("express/lib/response");
-
 var employeeModel = require("../models/employee.model");
 var projectModel = require('../models/project.model')
-var finishedProjectModel = require('../models/finishedProject.model')
-var assignedModel = require('../models/assigned.model')
 var taskModel = require('../models/task.model')
 
 module.exports.index = (req, res) => {
     res.render('project/index')
+}
+
+module.exports.search = (req, res) => {
+    var q = req.query.q
+    projectModel.findOne({name: q}, (error, project) => {
+        if(!error && project){
+            return project.name
+        }
+    })
 }
 
 module.exports.create = (req, res) => {

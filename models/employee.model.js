@@ -7,6 +7,7 @@ const employeeSchema = new mongoose.Schema({
     assigned: Array,
     walletAddress: String,
     date: Date,
+    passwd: String
 });
 
 module.exports = mongoose.model('employee', employeeSchema);

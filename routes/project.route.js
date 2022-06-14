@@ -10,6 +10,8 @@ router.get('/list', controller.list)
 
 router.get('/flist', controller.flist)
 
+router.get('/search', controller.search)
+
 router.get('/create', controller.createList)
 
 router.get('/:id', controller.getDetail)

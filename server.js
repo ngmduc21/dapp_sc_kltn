@@ -12,6 +12,7 @@ var userRoute = require('./routes/users.route')
 var projectRoute = require('./routes/project.route')
 var transferRoute = require('./routes/transfer.route')
 var adminRoute = require('./routes/admin.route.js')
+var authRoute = require('./routes/auth.route')
 
 // Khai báo đường dẫn thư mục public (để rút gọn mỗi khi gọi)
 app.use(express.static('public'));
@@ -36,6 +37,8 @@ var bodyParse = require('body-parser');
 const { update } = require('./models/employee.model');
 app.use(bodyParse.urlencoded({ extended: false }));
 
+var cookieParser = require('cookie-parser')
+app.use(cookieParser())
 // Khai báo server và socket.io
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -55,6 +58,8 @@ app.use('/project', projectRoute);
 app.use('/transfer', transferRoute)
 
 app.use('/admin', adminRoute)
+
+app.use('/auth', authRoute)
 
 // Server listen trên port
 var port = 3000
