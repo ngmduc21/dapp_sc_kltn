@@ -1,7 +1,7 @@
 var employeeModel = require("../models/employee.model");
 var projectModel = require('../models/project.model')
 var taskModel = require('../models/task.model')
-
+const res = require("express/lib/response");
 module.exports.index = (req, res) => {
     res.render('project/index')
 }
@@ -157,7 +157,8 @@ module.exports.finish = async(req, res) => {
 module.exports.postcreate =(req, res) => {
     if(!req.body.name || !req.body.client || !req.body.budget) {
         console.log("Not enough required information!")
-        res.json({result: "Error", message: "Not enough required information!"})
+        console.log(req.body)
+        res.json({result: 0, message: "Not enough required information!"})
     } else {
         var newProject = new projectModel({
             name: req.body.name,
@@ -167,11 +168,11 @@ module.exports.postcreate =(req, res) => {
             budget: req.body.budget,
             listMembers: [req.body.lead, req.body.mem1, req.body.mem2, req.body.mem3],
             date: Date.now(),
-            status: "In Progress"
+            status: "In Progress",
         })
 
         newProject.save(function(error){
-            if(!error){
+            if(error){
                 console.log(error)
                 res.json({result: 0, message: 'Got error when try to save information to MongoDB!'});
             }else {
@@ -181,14 +182,35 @@ module.exports.postcreate =(req, res) => {
         })
     }
 }
+async function getWallet(list){
+    var member = []
+    for(var i=0; i<list.length;i++){
+        var mem = await employeeModel.findOne({_id: list[i]})
+        
+        console.log(mem.walletAddress)
+        member.push(mem.walletAddress)
+        }
+    return member
+}
 
+module.exports.wallet = async(req, res) => {
+    if(!req.body.mem1){
+        console.log("Unable to get wallet: Project does not have members")
+    }else{
+        console.log(req.body.mem1, req.body.mem2, req.body.mem3)
+        var list = [req.body.mem1, req.body.mem2, req.body.mem3]
+        var wallet = await getWallet(list)
+        console.log(wallet)
+        res.json({result: 1, wallet: wallet})
+        }
+}
 // Process finish project
 module.exports.postFinish = (req, res) => {
-    if(!req.body.mem1 || !req.body.project) {
+    if(!req.body.project) {
         console.log("Unable to finish: Project does not have tasks")
         res.json({result: 0, message: "Project does not have tasks"})
     } else {
-        projectModel.findByIdAndUpdate({_id: req.body.project}, {$set: {status: "Finished"}}, (error, project) => {
+        projectModel.findByIdAndUpdate({_id: req.body.project}, {$set: {status: "Finished"}}, async(error, project) => {
             if(!error){
                 console.log("Finished project: ", project.name)
                 res.json({result: 1, message: project.name})

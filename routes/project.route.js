@@ -24,6 +24,8 @@ router.get('/createTask/:id', controller.createTask)
 
 router.post('/create', controller.postcreate)
 
+router.post('/wallet', controller.wallet)
+
 router.post('/finish', controller.postFinish)
 
 router.post('/delete', controller.delete)

@@ -41,7 +41,7 @@ $(document).ready(function(){
                                 setTimeout(
                                     function() 
                                     {
-                                        window.location = "/project/task/" + $("#id").val()
+                                        window.location = "/project/" + $("#id").val()
                                     }, 3000);             
                             }
                             else{
