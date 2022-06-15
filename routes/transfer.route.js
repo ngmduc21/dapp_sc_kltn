@@ -11,4 +11,6 @@ router.get('/reward', controller.reward)
 
 router.post('/searchEmployee', controller.searchEmployee)
 
+router.post('/checkAmount', controller.checkAmount)
+
 module.exports = router

@@ -14,8 +14,11 @@ async function connectMM() {
 
 $(document).ready(function () {
 
+    $("#loading").hide()
+    $("#select").hide()
+
     // Khai báo abi và địa chỉ của SC trên Network
-    const abi = [
+    const token_abi = [
         {
             "inputs": [],
             "stateMutability": "nonpayable",
@@ -47,43 +50,6 @@ $(document).ready(function () {
             "type": "event"
         },
         {
-            "inputs": [
-                {
-                    "internalType": "string",
-                    "name": "_id",
-                    "type": "string"
-                },
-                {
-                    "internalType": "address",
-                    "name": "_wallet",
-                    "type": "address"
-                }
-            ],
-            "name": "Create",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": false,
-                    "internalType": "string",
-                    "name": "_id",
-                    "type": "string"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "address",
-                    "name": "_wallet",
-                    "type": "address"
-                }
-            ],
-            "name": "CreateNewEmployee",
-            "type": "event"
-        },
-        {
             "anonymous": false,
             "inputs": [
                 {
@@ -100,32 +66,6 @@ $(document).ready(function () {
                 }
             ],
             "name": "OwnershipTransferred",
-            "type": "event"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "string",
-                    "name": "_id",
-                    "type": "string"
-                }
-            ],
-            "name": "Remove",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": false,
-                    "internalType": "string",
-                    "name": "_id",
-                    "type": "string"
-                }
-            ],
-            "name": "RemoveEmployee",
             "type": "event"
         },
         {
@@ -258,30 +198,6 @@ $(document).ready(function () {
         {
             "inputs": [
                 {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "name": "arrEmployee",
-            "outputs": [
-                {
-                    "internalType": "string",
-                    "name": "_id",
-                    "type": "string"
-                },
-                {
-                    "internalType": "address",
-                    "name": "_wallet",
-                    "type": "address"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
                     "internalType": "address",
                     "name": "owner",
                     "type": "address"
@@ -382,52 +298,336 @@ $(document).ready(function () {
             "stateMutability": "view",
             "type": "function"
         }
-    ];
-    const scAddress = "0x27f3dfc9495116802652b4cdf16ec401a13c2596";
+    ]
+    const trade_abi = [
+        {
+            "inputs": [
+                {
+                    "internalType": "contract PMC",
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Cash",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract PMC",
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Dayoff",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "trader",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TradeCash",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "trader",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TradeDayoff",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "trader",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "TradeVoucher",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "contract PMC",
+                    "name": "_token",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "receiver",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Voucher",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+
+    const tokenAddress = "0x3BAF920cDC3DF905c59CdF198BD84E2b1e33C50d"
+    const tradeAddress = '0xaAc0DfDdfb6d57497D8859575D7CB9E2B0176902'
+
+    const ownersc = "0x9e26E2De369BeD4127eB8C6e8353B22899a059F7"
 
     // Khởi tạo biến web3
     const web3 = new Web3(window.ethereum);
     window.ethereum.enable();
 
     // Kết nối đến SC và sử dụng ví MetaMask làm địa chỉ gọi SC
-    var contractMM = new web3.eth.Contract(abi, scAddress);
-    console.log(contractMM);
+    var contractMMtoken = new web3.eth.Contract(token_abi, tokenAddress);
+    var contractMMtrade = new web3.eth.Contract(trade_abi, tradeAddress);
+
+    console.log(contractMMtoken);
+    console.log(contractMMtrade);
 
     // Khởi tạo Web Socket kết nối với Infura để bắt các event từ SC emit ra
     var provider = new Web3.providers.WebsocketProvider("wss://rinkeby.infura.io/ws/v3/ebad9413b5c04f5a9f7eb4768b7237ed");
     var infura_web3 = new Web3(provider);
-    var infura_contract = infura_web3.eth.Contract(abi, scAddress);
-    console.log(infura_contract);
 
-    var userAccount = "";
-    var receiverAccount = "";
+    var infura_contract_token = infura_web3.eth.Contract(token_abi, tokenAddress);
+    var infura_contract_trade = infura_web3.eth.Contract(trade_abi, tradeAddress);
+
+    console.log(infura_contract_token);
+    console.log(infura_contract_trade);
+
+    var eTransfer = 0, eTrade = 0
+    // Bắt event mới nhất từ SC thông qua Infura
+    infura_contract_token.events.Transfer({filter:{}, fromBlock:"latest"}, function(error, event){ 
+        if(error){
+            console.log(error);
+        }else{
+            console.log(event);
+            eTransfer = 1
+            if(eTransfer == 1 && eTrade == 1){
+                $("#loading").hide()
+                $.alert("Chuyển đổi thành công! Quay lại trong 3 giây.")
+                setTimeout(function(){
+                    window.location = "/transfer"
+                }, 2500)
+            }
+        }
+    })
+    infura_contract_trade.events.TradeCash({filter:{}, fromBlock:"latest"}, function(error, event){ 
+        if(error){
+            console.log(error);
+        }else{
+            console.log(event);
+            eTrade = 1
+            if(eTransfer == 1 && eTrade == 1){
+                $("#loading").hide()
+                $.alert("Chuyển đổi thành công! Quay lại trong 3 giây.")
+                setTimeout(function(){
+                    window.location = "/transfer"
+                }, 2500)
+            }
+        }
+    })
+    infura_contract_trade.events.TradeDayoff({filter:{}, fromBlock:"latest"}, function(error, event){ 
+        if(error){
+            console.log(error);
+        }else{
+            console.log(event);
+            eTrade = 1
+            if(eTransfer == 1 && eTrade == 1){
+                $("#loading").hide()
+                $.alert("Chuyển đổi thành công! Quay lại trong 3 giây.")
+                setTimeout(function(){
+                    window.location = "/transfer"
+                }, 2500)
+            }
+        }
+    })
+    infura_contract_trade.events.TradeVoucher({filter:{}, fromBlock:"latest"}, function(error, event){ 
+        if(error){
+            console.log(error);
+        }else{
+            console.log(event);
+            eTrade = 1
+            if(eTransfer == 1 && eTrade == 1){
+                $("#loading").hide()
+                $.alert("Chuyển đổi thành công! Quay lại trong 3 giây.")
+                setTimeout(function(){
+                    window.location = "/transfer"
+                }, 2500)
+            }
+        }
+    })
+
+    var userAccount = ""
+
     isMetamaskInstalled();
 
-    $("#show").click(function () {
-        connectMM().then((data) => {
-            userAccount = data[0];
-            console.log(userAccount);
-            $("#senderWallet").val(userAccount)
-            contractMM.methods.balanceOf(userAccount).call({
-                from: userAccount
-            }).then(function (result) {
-                $("#senderAmount").val(result.toString());
-            });
-        }).catch((err) => {
-            console.log(err);
-            $("#senderWallet").val(err.message)
-        });
-    });
+    connectMM().then((data) => {
+        userAccount = data[0];
+        console.log(userAccount);
 
+        $("#senderWallet").val(userAccount)
 
-    $("#submitExchange").click(function(){
-        amount = $("#tokenAmount").val()
-        receiver = $("#receiverWallet").val()
-        console.log(receiver, amount);
-        contractMM.methods.transfer(userAccount, receiver, amount).send({
+        contractMMtoken.methods.balances(userAccount).call({
             from: userAccount
         }).then(function (result) {
-            console.log(result);
-        })
+            console.log(result)
+            $("#senderAmount").val(result.toString());
+        });
+    }).catch((err) => {
+        console.log(err);
+        $("#senderWallet").val(err.message)
+    });
+
+    $("#rewardType").click(function(){
+        if($("#mem1").val() != "Lựa chọn"){
+            var type = $("#rewardType").val()
+            if(type == "Ngày nghỉ"){
+                $("#select").val(2)
+                console.log($("#select").val())
+            }else if(type == "Tiền mặt"){
+                $("#select").val(1)
+                console.log($("#select").val())
+            }else if(type == "Voucher ăn uống 250k"){
+                $("#select").val(3)
+                console.log($("#select").val())
+            }
+        }
+    })
+
+    var oldAmount = 10
+    $("#rewardAmount").change(function(){
+        if($("#rewardAmount") != null && oldAmount != 0 && $("#select").val() != null){
+            var amount = $("#rewardAmount").val()
+            $.post("./transfer/checkAmount",{
+                select: $("#select").val(),
+                amount: amount
+            }, function(data){
+                if(data.result == 1){
+                    var newAmount = data.message
+                    $("#rewardAmount").val(newAmount)
+                    oldAmount = newAmount
+                }
+            })
+        }
+    })
+
+    $("#change").click(function(){
+        $("#loading").show()
+        setTimeout(function(){
+            amount = $("#rewardAmount").val()
+            console.log(amount)
+            $.post("./transfer/checkAmount",{
+                amount: amount,
+                select: $("#select").val(),
+            }, function(data){
+                if(data.result == 1){
+                    $("#rewardAmount").val(data.message)
+                    amount = $("#rewardAmount").val()
+                    if($("#select").val() == 1){
+                        contractMMtrade.methods.Cash(tokenAddress, ownersc, amount).send({
+                            from: userAccount
+                        }).then(function (result) {
+                            console.log(result);
+                        })
+                    }
+                    else if($("#select").val() == 2){
+                        contractMMtrade.methods.Dayoff(tokenAddress, ownersc, amount).send({
+                            from: userAccount
+                        }).then(function (result) {
+                            console.log(result);
+                        })
+                    }
+                    else if($("#select").val() == 3){
+                        contractMMtrade.methods.Voucher(tokenAddress, ownersc, amount).send({
+                            from: userAccount
+                        }).then(function (result) {
+                            console.log(result);
+                        })
+                    }
+                }else{
+                    $("#loading").hide()
+                    alert(data.message)
+                }
+            })
+            
+        }, 1000)
     })
 });

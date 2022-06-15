@@ -47,43 +47,6 @@ $(document).ready(function () {
             "type": "event"
         },
         {
-            "inputs": [
-                {
-                    "internalType": "string",
-                    "name": "_id",
-                    "type": "string"
-                },
-                {
-                    "internalType": "address",
-                    "name": "_wallet",
-                    "type": "address"
-                }
-            ],
-            "name": "Create",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": false,
-                    "internalType": "string",
-                    "name": "_id",
-                    "type": "string"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "address",
-                    "name": "_wallet",
-                    "type": "address"
-                }
-            ],
-            "name": "CreateNewEmployee",
-            "type": "event"
-        },
-        {
             "anonymous": false,
             "inputs": [
                 {
@@ -100,32 +63,6 @@ $(document).ready(function () {
                 }
             ],
             "name": "OwnershipTransferred",
-            "type": "event"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "string",
-                    "name": "_id",
-                    "type": "string"
-                }
-            ],
-            "name": "Remove",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": false,
-                    "internalType": "string",
-                    "name": "_id",
-                    "type": "string"
-                }
-            ],
-            "name": "RemoveEmployee",
             "type": "event"
         },
         {
@@ -258,30 +195,6 @@ $(document).ready(function () {
         {
             "inputs": [
                 {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "name": "arrEmployee",
-            "outputs": [
-                {
-                    "internalType": "string",
-                    "name": "_id",
-                    "type": "string"
-                },
-                {
-                    "internalType": "address",
-                    "name": "_wallet",
-                    "type": "address"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
                     "internalType": "address",
                     "name": "owner",
                     "type": "address"
@@ -382,8 +295,9 @@ $(document).ready(function () {
             "stateMutability": "view",
             "type": "function"
         }
-    ];
-    const scAddress = "0x27f3dfc9495116802652b4cdf16ec401a13c2596";
+    ]
+    const tokensc = "0x3BAF920cDC3DF905c59CdF198BD84E2b1e33C50d"
+    const scAddress = "0x3BAF920cDC3DF905c59CdF198BD84E2b1e33C50d";
 
     // Khởi tạo biến web3
     const web3 = new Web3(window.ethereum);
