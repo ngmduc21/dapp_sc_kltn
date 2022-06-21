@@ -297,7 +297,7 @@ $(document).ready(function () {
         }
     ]
     const tokensc = "0x3BAF920cDC3DF905c59CdF198BD84E2b1e33C50d"
-    const scAddress = "0x3BAF920cDC3DF905c59CdF198BD84E2b1e33C50d";
+    const scAddress = "0xf2b2827656fd40da32cfd9097088e8f9a7d46a60";
 
     // Khởi tạo biến web3
     const web3 = new Web3(window.ethereum);

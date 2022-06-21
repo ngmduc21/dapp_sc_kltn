@@ -24,7 +24,7 @@ app.set("views", "./views");
 
 // Kết nối vào MongoDB
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://dapp2022:Dapp_sc2022@dappcluster.fi81j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
+mongoose.connect(process.env.DBCONNECT, { useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
     if (err) {
         console.log("MongoDB connected fail" + err);
     } else {
@@ -62,9 +62,8 @@ app.use('/admin', adminRoute)
 app.use('/auth', authRoute)
 
 // Server listen trên port
-var port = 3000
-app.listen(port, function () {
-    console.log("Server listening on port", port)
+app.listen(process.env.PORT, function () {
+    console.log("Server listening on port", process.env.PORT)
 });
 
 // })
