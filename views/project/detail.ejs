@@ -24,6 +24,7 @@
       #loading-image {
         z-index: 100;
       }
+      
     </style>
 </head>
 <body>
@@ -34,7 +35,15 @@
         <a href="/project">
             <button class="btn btn-primary">&laquo; Trở lại</button>
         </a>
-        <input class="form-control" id="projectID" value="<%= data._id%>" readonly>
+        <% if(task.length){
+                            
+            for(var i = 0; i< task.length; i++) {%>  
+            <input id="<%=i+1%>" value="<%= task[i]._id%>" hidden>
+            <% }
+                    
+            }%>
+                
+        <input class="form-control" id="projectID" value="<%= data._id%>" hidden>
         <div id="loading">
             <img id="loading-image" src="https://plecevo.eu/i/simple_loading.gif" alt="Loading..." />
           </div>
@@ -94,6 +103,15 @@
                 </tr>
             </table>
             <h2> Danh sách task</h2>
+            <table class="table">
+                <td>
+                    <input class="form-control" id="idTaskDelete" >
+                </td>
+                <td>
+                    <button id="deleteTask" type="button" class="btn btn-primary"> Xoá task </button>
+                </td>
+            </table>
+            
             <div>
                 <br>
                 <table class="table">

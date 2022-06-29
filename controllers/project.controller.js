@@ -2,6 +2,7 @@ var employeeModel = require("../models/employee.model");
 var projectModel = require('../models/project.model')
 var taskModel = require('../models/task.model')
 const res = require("express/lib/response");
+const { modelName } = require("../models/employee.model");
 module.exports.index = (req, res) => {
     res.render('project/index')
 }
@@ -338,3 +339,19 @@ module.exports.postTask = async(req, res) => {
     }
 }
 
+module.exports.deleteTask = (req, res) => {
+    if(!req.body.task){
+        console.log("Not enough required information!")
+        res.json({result: 0, message: "Not enough required information!"})
+    }else{
+        taskModel.deleteOne({_id: req.body.task}, (error, task) => {
+            if(!error){
+                console.log("Deleted task", req.body.task)
+                res.json({result: 1, message: "Đã xoá task thành công"})
+            }else{
+                console.log("Unable to delete task")
+                res.json({result: 0, message: "Không thể xoá task"})
+            }
+        })
+    }
+}
