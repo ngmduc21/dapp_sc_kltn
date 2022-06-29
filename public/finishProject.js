@@ -496,15 +496,7 @@ $(document).ready(function(){
                                     contractMM.methods.transfer(userAccount, memWallet[2], reward[2]).send({
                                         from: userAccount
                                     })
-                                    // if(count.length == 3){
-                                    //     $("#loading").hide()
-                                    //     alert('Hoàn thành thành công dự án ' + data.message + '! Chuyển hướng sau 3 giây.')
-                                    //     setTimeout(
-                                    //         function() 
-                                    //         {
-                                    //             window.location = "/project/list"
-                                    //         }, 3000); 
-                                    // }        
+                                           
                                 }
                                 else{
                                     $("#loading").hide()
