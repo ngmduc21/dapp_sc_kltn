@@ -4,7 +4,7 @@ $(document).ready(function(){
         content: 'Bạn chắc chắn muốn xoá nhân viên này ?',
         buttons: {
             delete: {
-                text: 'Xoá dự án',
+                text: 'Xoá nhân viên',
                 btnClass: 'btn-blue',
                 keys: ['enter', 'shift'],
                 action: function(){

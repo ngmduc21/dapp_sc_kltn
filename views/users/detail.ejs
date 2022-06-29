@@ -49,38 +49,10 @@
                     <th scope="col"> Địa chỉ ví MetaMask </th>
                     <td scope="row"><%= data.walletAddress%></td>
                 </tr>
-                <tr>
-                    <th scope="col"> Dự án đã tham gia </th>
-                    <% if(data.assigned.length){
-                
-                        for(var i = 0; i< data.assigned.length; i++) {%>
-                            <tr>
-                                <td scope="row"> # <%= (i+1) %> </th>
-                                <td scope="row"><%= data.assigned[i]%></td>
-                            </tr>
-                    <% }
-                
-                    }else{ %>
-                        <tr>
-                            <td colspan="3">Chưa có dự án tham gia</td>
-                        </tr>
-                        <% } %>
-                </tr>
             </table>
-            <a href="/task">
-                <button type="button" class="btn btn-primary"> Quản lý công việc </button>
-            </a>
-            <a href="/project/finish/<%= data._id%>">
-                <button type="button" class="btn btn-primary">
-                    Hoàn thành
-                </button>
-            </a>
-            
                 <button id="btnDelete" type="button" class="btn btn-primary">
-                    Xoá
+                    Xoá nhân viên
                 </button>
-                
-            
         </div>
     </main>
     <footer>

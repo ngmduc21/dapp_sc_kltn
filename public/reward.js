@@ -13,7 +13,7 @@ async function connectMM() {
 }
 
 $(document).ready(function () {
-
+    
     $("#loading").hide()
     $("#select").hide()
 
@@ -446,10 +446,10 @@ $(document).ready(function () {
         }
     ]
 
-    const tokenAddress = "0x3BAF920cDC3DF905c59CdF198BD84E2b1e33C50d"
-    const tradeAddress = '0xaAc0DfDdfb6d57497D8859575D7CB9E2B0176902'
+    const tokenAddress = "0xf2b2827656fd40da32cfd9097088e8f9a7d46a60"
+    const tradeAddress = '0xd86c35632b5caf1a30f5f52f00839c4ebe671d34'
 
-    const ownersc = "0x9e26E2De369BeD4127eB8C6e8353B22899a059F7"
+    const ownersc = "0xB0c9f91A093A01a6eBA93eeEb45fBe291FB0d072"
 
     // Khởi tạo biến web3
     const web3 = new Web3(window.ethereum);
