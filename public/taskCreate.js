@@ -16,6 +16,7 @@ $(document).ready(function(){
             $("#memberID").val("ID")
         }
     })
+    
     $("#btnSubmit").confirm({
         title: 'Xác nhận',
         content: 'Bạn chắc chắn muốn tạo công việc này ?',
@@ -25,32 +26,35 @@ $(document).ready(function(){
                 btnClass: 'btn-blue',
                 keys: ['enter', 'shift'],
                 action: function(){
-                    
-                    $("#loading").show()
-                    setTimeout(function(){
-                        $.post("./project/createTask", {
-                            project: $("#id").val(),
-                            name: $("#name").val(),
-                            point: $("#point").val(),
-                            member: $("#memberID").val(),
-                            memName: $("#member").val()
-                        },function(data){
-                            if(data.result == 1){
-                                $("#loading").hide()
-                                $.alert('Khởi tạo thành công công việc "' + data.message + '"! Chuyển hướng sau 3 giây.')
-                                setTimeout(
-                                    function() 
-                                    {
-                                        window.location = "/project/" + $("#id").val()
-                                    }, 3000);             
-                            }
-                            else{
-                                $("#loading").hide()
-                                $.alert('Thao tác thất bại')
-                            }
-                        })    
-                    }, 1000)
-                    
+                    if($("#point").val() > 500){
+                        $.alert("Điểm thường không thể quá 500!")
+                        $("#point").val("")
+                    }else{
+                        $("#loading").show()
+                        setTimeout(function(){
+                            $.post("./project/createTask", {
+                                project: $("#id").val(),
+                                name: $("#name").val(),
+                                point: $("#point").val(),
+                                member: $("#memberID").val(),
+                                memName: $("#member").val()
+                            },function(data){
+                                if(data.result == 1){
+                                    $("#loading").hide()
+                                    $.alert('Khởi tạo thành công công việc "' + data.message + '"! Chuyển hướng sau 3 giây.')
+                                    setTimeout(
+                                        function() 
+                                        {
+                                            window.location = "/project/" + $("#id").val()
+                                        }, 3000);             
+                                }
+                                else{
+                                    $("#loading").hide()
+                                    $.alert('Thao tác thất bại! ' + data.message)
+                                }
+                            })    
+                        }, 1000)
+                    }
                 }
             },
             

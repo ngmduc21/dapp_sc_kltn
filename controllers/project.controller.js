@@ -293,29 +293,48 @@ module.exports.createTask = async(req, res) => {
     })
     
 }
+async function getTotalPoint(id){
+    var totalPoint = 0
+    var task = await taskModel.find({project: id})
+    for(i=0; i< task.length; i++){
+        totalPoint += task[i].point
+    }
+    return totalPoint
+}
 
-module.exports.postTask = (req, res) => {
+module.exports.postTask = async(req, res) => {
     if(!req.body.name || !req.body.point || !req.body.project || !req.body.member) {
         console.log("Not enough required information!")
         res.json({result: 0, message: "Not enough required information!"})
     } else {
-        var newTask = new taskModel({
-            project: req.body.project,
-            employee: req.body.member,
-            name: req.body.name,
-            point: req.body.point,
-            memName: req.body.memName,
-        })
-
-        newTask.save(function(error){
-            if(error){
-                console.log(error)
-                res.json({result: 0, message: 'Got error when try to save information to MongoDB!'});
-            }else {
-                console.log("Đã tạo thành công task", newTask.name)
-                res.json({result: 1, message: newTask.name})
-            }
-        })
+        var totalPoint = await getTotalPoint(req.body.project)
+        var budget = await getProject(req.body.project)
+        var maxPoint = budget.budget
+        var currentPoint = Number(totalPoint) + Number(req.body.point)
+        console.log(totalPoint, currentPoint, maxPoint)
+        if(currentPoint > maxPoint){
+            console.log("Vượt quá số budget!")
+            res.json({result: 0, message: "Vượt quá số budget!"})
+        }else {
+            var newTask = new taskModel({
+                project: req.body.project,
+                employee: req.body.member,
+                name: req.body.name,
+                point: req.body.point,
+                memName: req.body.memName,
+            })
+    
+            newTask.save(function(error){
+                if(error){
+                    console.log(error)
+                    res.json({result: 0, message: 'Got error when try to save information to MongoDB!'});
+                }else {
+                    console.log("Đã tạo thành công task", newTask.name)
+                    res.json({result: 1, message: newTask.name})
+                }
+            })
+        }
+        
     }
 }
 
