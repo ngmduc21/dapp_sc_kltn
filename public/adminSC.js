@@ -422,7 +422,7 @@ $(document).ready(function () {
                 "type": "function"
             }
         ];
-    const scAddress = "0x34206a31d4431bc7d9dfa0779e20e5e96d4fb3e9";
+    const scAddress = "0x92F51ffcBc7eBB07e4F1aa0a0a362aE958f39b00";
 
     // Khởi tạo biến web3
     const web3 = new Web3(window.ethereum);

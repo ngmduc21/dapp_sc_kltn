@@ -446,8 +446,8 @@ $(document).ready(function () {
         }
     ]
 
-    const tokenAddress = "0xf2b2827656fd40da32cfd9097088e8f9a7d46a60"
-    const tradeAddress = '0xd86c35632b5caf1a30f5f52f00839c4ebe671d34'
+    const tokenAddress = "0x27a4C085A5141caEebAeB62B4621ef9440c1c05b"
+    const tradeAddress = '0x92F51ffcBc7eBB07e4F1aa0a0a362aE958f39b00'
 
     const ownersc = "0xB0c9f91A093A01a6eBA93eeEb45fBe291FB0d072"
 

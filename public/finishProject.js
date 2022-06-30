@@ -310,7 +310,7 @@ $(document).ready(function(){
             "type": "function"
         }
     ]
-    const scAddress = "0xf2b2827656fd40da32cfd9097088e8f9a7d46a60"
+    const scAddress = "0x92F51ffcBc7eBB07e4F1aa0a0a362aE958f39b00"
     // Khởi tạo biến web3
     const web3 = new Web3(window.ethereum);
     window.ethereum.enable();
