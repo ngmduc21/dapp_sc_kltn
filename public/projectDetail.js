@@ -6,7 +6,7 @@ $(document).ready(function(){
         content: 'Bạn chắc chắn muốn xoá task này ?',
         buttons: {
             delete: {
-                text: 'Xoá dự án',
+                text: 'Xoá công việc',
                 btnClass: 'btn-blue',
                 keys: ['enter', 'shift'],
                 action: function(){
