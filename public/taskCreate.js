@@ -29,7 +29,10 @@ $(document).ready(function(){
                     if($("#point").val() > 500){
                         $.alert("Điểm thường không thể quá 500!")
                         $("#point").val("")
-                    }else{
+                    }else if($("#member").val() == "Lựa chọn"){
+                        $.alert("Chưa có thành viên được gán cho task này!")
+                    }
+                    else{
                         $("#loading").show()
                         setTimeout(function(){
                             $.post("./project/createTask", {
