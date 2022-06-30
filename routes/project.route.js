@@ -34,4 +34,6 @@ router.post('/searchEmployee', controller.searchEmployee)
 
 router.post('/createTask', controller.postTask)
 
+router.post('/deleteTask', controller.deleteTask)
+
 module.exports = router

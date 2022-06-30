@@ -16,52 +16,41 @@
     </header>
     <main>
       <%- include('../partials/users/sidenav'); %>
-      <h1>Tạo nhân viên mới</h1>
       
       <div id="employee-create-form">
+        <h1>Tạo nhân viên mới</h1>
         <form>
-          <div class="mb-3">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="inputName" placeholder="example" aria-describedby="nameHelp">
             <label for="inputName" class="form-label">Tên nhân viên</label>
-            <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
             <div id="nameHelp" class="form-text">Nhập họ tên cho nhân viên mới</div>
           </div>
-          <div class="mb-3">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="inputEmail" placeholder="example" aria-describedby="emailHelp">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="text" id="inputEmail" class="form-control" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">
-            Tạo email mới cho nhân viên
-            </div>
+            <div id="emailHelp" class="form-text">Tạo email mới cho nhân viên</div>
           </div>
-          
-            <div class="mb-3">
-              <label for="inputPhone" class="form-label">Số điện thoại</label>
-              <input type="text" id="inputPhone" class="form-control" aria-describedby="phoneHelp">
-              <div id="phoneHelp" class="form-text">
-              Nhập số điện thoại của nhân viên
-              </div>  
-            </div>
-
-            <div class="mb-3">
-              <label for="inputID" class="form-label">Mã nhân viên</label>
-              <input type="text" id="inputID" class="form-control" aria-describedby="IDHelp">
-              <div id="IDHelp" class="form-text">
-              Nhập mã nhân viên
-              </div>  
-            </div>
-
-            <div class="mb-3">
-              <label for="inputWallet" class="form-label">Địa chỉ ví</label>
-              <input type="text" id="inputWallet" class="form-control" aria-describedby="walletHelp">
-              <div id="memberHelp" class="form-text">
-              Cung cấp địa chỉ ví của nhân viên 
-              </div>
-            </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="inputPhone" placeholder="example" aria-describedby="phoneHelp">
+            <label for="inputPhone" class="form-label">Số điện thoại</label>
+            <div id="phoneHelp" class="form-text">Nhập số điện thoại của nhân viên</div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="inputID" placeholder="example" aria-describedby="IDHelp">
+            <label for="inputID" class="form-label">Mã nhân viên</label>
+            <div id="IDHelp" class="form-text">Nhập mã nhân viên</div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="inputWallet" placeholder="example" aria-describedby="walletHelp">
+            <label for="inputWallet" class="form-label">Địa chỉ ví</label>
+            <div id="walletHelp" class="form-text">Cung cấp địa chỉ ví của nhân viên </div>
+          </div>
             <button id="btnSubmit" type="submit" class="btn btn-primary">Xác nhận</button>
           </div>
-          
         </form>
       </div>
     </main>
+    
     <footer>
         <%- include('../partials/footer'); %>
     </footer>

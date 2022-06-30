@@ -2,6 +2,7 @@ var employeeModel = require("../models/employee.model");
 var projectModel = require('../models/project.model')
 var taskModel = require('../models/task.model')
 const res = require("express/lib/response");
+const { modelName } = require("../models/employee.model");
 module.exports.index = (req, res) => {
     res.render('project/index')
 }
@@ -293,29 +294,64 @@ module.exports.createTask = async(req, res) => {
     })
     
 }
+async function getTotalPoint(id){
+    var totalPoint = 0
+    var task = await taskModel.find({project: id})
+    for(i=0; i< task.length; i++){
+        totalPoint += task[i].point
+    }
+    return totalPoint
+}
 
-module.exports.postTask = (req, res) => {
+module.exports.postTask = async(req, res) => {
     if(!req.body.name || !req.body.point || !req.body.project || !req.body.member) {
         console.log("Not enough required information!")
         res.json({result: 0, message: "Not enough required information!"})
     } else {
-        var newTask = new taskModel({
-            project: req.body.project,
-            employee: req.body.member,
-            name: req.body.name,
-            point: req.body.point,
-            memName: req.body.memName,
-        })
+        var totalPoint = await getTotalPoint(req.body.project)
+        var budget = await getProject(req.body.project)
+        var maxPoint = budget.budget
+        var currentPoint = Number(totalPoint) + Number(req.body.point)
+        console.log(totalPoint, currentPoint, maxPoint)
+        if(currentPoint > maxPoint){
+            console.log("Vượt quá số budget!")
+            res.json({result: 0, message: "Vượt quá số budget!"})
+        }else {
+            var newTask = new taskModel({
+                project: req.body.project,
+                employee: req.body.member,
+                name: req.body.name,
+                point: req.body.point,
+                memName: req.body.memName,
+            })
+    
+            newTask.save(function(error){
+                if(error){
+                    console.log(error)
+                    res.json({result: 0, message: 'Got error when try to save information to MongoDB!'});
+                }else {
+                    console.log("Đã tạo thành công task", newTask.name)
+                    res.json({result: 1, message: newTask.name})
+                }
+            })
+        }
+        
+    }
+}
 
-        newTask.save(function(error){
-            if(error){
-                console.log(error)
-                res.json({result: 0, message: 'Got error when try to save information to MongoDB!'});
-            }else {
-                console.log("Đã tạo thành công task", newTask.name)
-                res.json({result: 1, message: newTask.name})
+module.exports.deleteTask = (req, res) => {
+    if(!req.body.task){
+        console.log("Not enough required information!")
+        res.json({result: 0, message: "Not enough required information!"})
+    }else{
+        taskModel.deleteOne({_id: req.body.task}, (error, task) => {
+            if(!error){
+                console.log("Deleted task", req.body.task)
+                res.json({result: 1, message: "Đã xoá task thành công"})
+            }else{
+                console.log("Unable to delete task")
+                res.json({result: 0, message: "Không thể xoá task"})
             }
         })
     }
 }
-
